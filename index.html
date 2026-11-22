@@ -108,11 +108,11 @@
         <!-- CP 9 Card -->
         <button onclick="openMode('cp9')" class="w-full text-left p-4 rounded-xl bg-slate-900/90 border border-cyan-500/40 hover:border-cyan-400 transition group">
           <div class="flex items-center justify-between mb-1">
-            <span class="font-mono-tech text-xs font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300">CP 9 • 3–5 MINS</span>
+            <span class="font-mono-tech text-xs font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300">CP 9 • 5–7 MINS</span>
             <span class="text-cyan-400 group-hover:translate-x-1 transition">→</span>
           </div>
           <h2 class="text-lg font-bold text-white">Cyber Breach</h2>
-          <p class="text-xs text-slate-400 mt-0.5">3-Layer Arcade Reflex &amp; Memory Bypass: Signal Memory, Glitch Scanner, and Firewall Lock-On.</p>
+          <p class="text-xs text-slate-400 mt-0.5">5-Layer Arcade Bypass: Signal Memory, Glitch Scanner, Node Trace, Cipher Match &amp; Firewall Lock-On.</p>
         </button>
 
         <!-- CP 10 Hacker Card -->
@@ -153,15 +153,15 @@
       <!-- Start Screen -->
       <div id="cp9-start" class="space-y-5 pt-4">
         <div class="p-5 rounded-2xl bg-slate-900 border border-cyan-500/40 space-y-4">
-          <div class="inline-block font-mono-tech text-xs px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-300">CHECKPOINT 9 • ARCADE BREACH</div>
+          <div class="inline-block font-mono-tech text-xs px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-300">CHECKPOINT 9 • 5-LAYER BREACH</div>
           <h1 class="text-2xl font-bold text-white">CYBER BREACH</h1>
           <p class="text-sm text-slate-300 leading-relaxed">
-            Clear <strong>3 fast-paced reflex &amp; memory layers</strong> before the timer runs out. Zero math or riddles!
+            Clear <strong>5 arcade reflex, pattern &amp; memory layers</strong> before the timer runs out!
           </p>
           <ul class="text-xs text-slate-400 space-y-1.5 font-mono-tech bg-slate-950 p-3 rounded-lg border border-slate-800">
-            <li>• Time Limit: 5 Minutes</li>
-            <li>• +30 pts per layer cleared (Max 90)</li>
-            <li>• +10 pts Speed Bonus (finish with 2:00+ left)</li>
+            <li>• Time Limit: 7 Minutes</li>
+            <li>• +18 pts per layer cleared (Max 90)</li>
+            <li>• +10 pts Speed Bonus (finish with 2:30+ left)</li>
             <li>• -3 pts per mistake</li>
           </ul>
           <div class="space-y-2 pt-1">
@@ -170,7 +170,7 @@
               class="w-full px-3.5 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white focus:outline-none focus:border-cyan-400 font-mono-tech" />
           </div>
           <button onclick="startCP9()" class="w-full py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold font-mono-tech tracking-wide glow-cyan transition">
-            START BREACH (05:00) →
+            START BREACH (07:00) →
           </button>
         </div>
       </div>
@@ -181,11 +181,11 @@
         <div class="grid grid-cols-3 gap-2 font-mono-tech text-center">
           <div class="bg-slate-900 border border-slate-800 rounded-xl p-2">
             <div class="text-[10px] text-slate-400">TIME LEFT</div>
-            <div id="cp9-timer" class="text-lg font-bold text-cyan-400">05:00</div>
+            <div id="cp9-timer" class="text-lg font-bold text-cyan-400">07:00</div>
           </div>
           <div class="bg-slate-900 border border-slate-800 rounded-xl p-2">
             <div class="text-[10px] text-slate-400">LAYER</div>
-            <div id="cp9-progress" class="text-lg font-bold text-white">1 / 3</div>
+            <div id="cp9-progress" class="text-lg font-bold text-white">1 / 5</div>
           </div>
           <div class="bg-slate-900 border border-slate-800 rounded-xl p-2">
             <div class="text-[10px] text-slate-400">PENALTIES</div>
@@ -196,13 +196,13 @@
         <!-- Feedback Banner -->
         <div id="cp9-msg" class="hidden text-center font-mono-tech text-xs py-2 px-3 rounded-lg"></div>
 
-        <!-- Layer 1: Signal Memory (Simon Says) -->
+        <!-- Layer 1: Signal Memory (2 Rounds: 4 flashes then 6 flashes) -->
         <div id="cp9-layer-1" class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
           <div class="flex items-center justify-between">
-            <span class="font-mono-tech text-xs text-cyan-400 font-bold">LAYER 1 // SIGNAL MEMORY</span>
-            <span id="simon-step-badge" class="font-mono-tech text-xs text-slate-400">0 / 5</span>
+            <span class="font-mono-tech text-xs text-cyan-400 font-bold">LAYER 1 // SIGNAL MEMORY (ROUND <span id="simon-round-num">1</span>/2)</span>
+            <span id="simon-step-badge" class="font-mono-tech text-xs text-slate-400">0 / 4</span>
           </div>
-          <p id="simon-status" class="text-sm text-slate-300">Watch the 5-flash signal sequence carefully...</p>
+          <p id="simon-status" class="text-sm text-slate-300">Watch the flashing signal sequence carefully...</p>
 
           <div class="grid grid-cols-2 gap-3 pt-1">
             <button id="simon-pad-0" onclick="tapSimonPad(0)" class="simon-pad h-28 rounded-2xl bg-rose-600 border-2 border-rose-400 text-rose-200 font-mono-tech font-extrabold text-base">
@@ -224,26 +224,50 @@
           </button>
         </div>
 
-        <!-- Layer 2: Glitch Scanner -->
+        <!-- Layer 2: Glitch Scanner (2 Waves) -->
         <div id="cp9-layer-2" class="hidden p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
           <div class="flex items-center justify-between">
-            <span class="font-mono-tech text-xs text-cyan-400 font-bold">LAYER 2 // GLITCH SCANNER</span>
+            <span class="font-mono-tech text-xs text-cyan-400 font-bold">LAYER 2 // GLITCH SCANNER (WAVE <span id="glitch-wave-num">1</span>/2)</span>
             <span id="glitch-count-badge" class="font-mono-tech text-xs text-emerald-400 font-bold">0 / 3 FOUND</span>
           </div>
           <p class="text-sm text-slate-300">
             Find and tap the <strong class="text-amber-300">3 corrupted codes</strong> hiding among the normal <code id="glitch-normal-label" class="text-cyan-300 font-mono-tech">SYS-808</code> nodes:
           </p>
 
-          <div id="glitch-grid" class="grid grid-cols-3 gap-2 pt-1">
-            <!-- Rendered dynamically -->
-          </div>
+          <div id="glitch-grid" class="grid grid-cols-3 gap-2 pt-1"></div>
         </div>
 
-        <!-- Layer 3: Firewall Lock-On -->
-        <div id="cp9-layer-3" class="hidden p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-5">
+        <!-- Layer 3: Node Trace (Ascending Number Rush - 2 Rounds) -->
+        <div id="cp9-layer-3" class="hidden p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
           <div class="flex items-center justify-between">
-            <span class="font-mono-tech text-xs text-cyan-400 font-bold">LAYER 3 // FIREWALL LOCK-ON</span>
-            <span id="reflex-count-badge" class="font-mono-tech text-xs text-emerald-400 font-bold">0 / 3 LOCKED</span>
+            <span class="font-mono-tech text-xs text-cyan-400 font-bold">LAYER 3 // NODE TRACE (WAVE <span id="trace-wave-num">1</span>/2)</span>
+            <span id="trace-step-badge" class="font-mono-tech text-xs text-emerald-400 font-bold">NEXT: 1 / 12</span>
+          </div>
+          <p class="text-sm text-slate-300">
+            Tap all network nodes in ascending order from <strong class="text-cyan-300">1 to 12</strong> as fast as you can!
+          </p>
+
+          <div id="trace-grid" class="grid grid-cols-4 gap-2.5 pt-1"></div>
+        </div>
+
+        <!-- Layer 4: Cipher Match (Memory Pairs) -->
+        <div id="cp9-layer-4" class="hidden p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="font-mono-tech text-xs text-cyan-400 font-bold">LAYER 4 // CIPHER MATCH</span>
+            <span id="pairs-count-badge" class="font-mono-tech text-xs text-emerald-400 font-bold">0 / 6 PAIRS</span>
+          </div>
+          <p class="text-sm text-slate-300">
+            Flip two encrypted nodes at a time to match all <strong class="text-amber-300">6 security key pairs</strong>:
+          </p>
+
+          <div id="pairs-grid" class="grid grid-cols-4 gap-2.5 pt-1"></div>
+        </div>
+
+        <!-- Layer 5: Firewall Lock-On (4 Locks) -->
+        <div id="cp9-layer-5" class="hidden p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-5">
+          <div class="flex items-center justify-between">
+            <span class="font-mono-tech text-xs text-cyan-400 font-bold">LAYER 5 // FIREWALL LOCK-ON</span>
+            <span id="reflex-count-badge" class="font-mono-tech text-xs text-emerald-400 font-bold">0 / 4 LOCKED</span>
           </div>
           <p class="text-sm text-slate-300">
             Tap <strong class="text-cyan-300">LOCK SIGNAL</strong> when the moving scanner bar is inside the <strong class="text-emerald-400">GREEN TARGET ZONE</strong>!
@@ -600,7 +624,7 @@
     }
 
     /* =====================================================================
-       CP 9: CYBER BREACH (ARCADE MEMORY + GLITCH SCAN + REFLEX)
+       CP 9: CYBER BREACH (5 EXTENDED ARCADE LAYERS)
     ===================================================================== */
     const GLITCH_PAIRS = [
       ['SYS-808', 'SYS-8O8'],
@@ -608,24 +632,40 @@
       ['KEY-55Z', 'KEY-552'],
       ['CPU-99B', 'CPU-998'],
       ['HEX-0A0', 'HEX-OA0'],
-      ['BOT-77T', 'BOT-777']
+      ['BOT-77T', 'BOT-777'],
+      ['RAM-404', 'RAM-4O4'],
+      ['VPN-22S', 'VPN-225']
     ];
+
+    const CIPHER_ICONS = ['🔐', '🛰️', '🧬', '⚡', '🛡️', '📡'];
 
     const cp9 = {
       team: '',
-      timeLeft: 300, // 5 minutes
+      timeLeft: 420, // 7 minutes
       layer: 1,
       errors: 0,
       cleared: 0,
-      // Layer 1: Simon Says
+      // Layer 1: Signal Memory (2 rounds: length 4 then length 6)
+      simonRound: 1,
       simonSeq: [],
       simonInput: [],
       simonPlaying: false,
-      // Layer 2: Glitch Scanner
+      // Layer 2: Glitch Scanner (2 waves)
+      glitchWave: 1,
+      usedGlitchIdx: -1,
       normalCode: 'SYS-808',
       cells: [],
       glitchesFound: 0,
-      // Layer 3: Reflex Lock-On
+      // Layer 3: Node Trace (2 waves of 1..12)
+      traceWave: 1,
+      traceNodes: [],
+      traceNext: 1,
+      // Layer 4: Cipher Match (6 pairs = 12 cards)
+      pairCards: [],
+      flippedIndices: [],
+      matchedPairs: 0,
+      pairLock: false,
+      // Layer 5: Reflex Lock-On (4 locks)
       zoneStart: 35,
       zoneWidth: 24,
       cursorPos: 5,
@@ -633,12 +673,23 @@
       reflexHits: 0
     };
 
-    function generateCP9Data() {
-      cp9.simonSeq = Array.from({ length: 5 }, () => Math.floor(Math.random() * 4));
+    function setupSimonRound(round) {
+      cp9.simonRound = round;
+      const len = round === 1 ? 4 : 6;
+      cp9.simonSeq = Array.from({ length: len }, () => Math.floor(Math.random() * 4));
       cp9.simonInput = [];
       cp9.simonPlaying = false;
+      document.getElementById('simon-round-num').textContent = round;
+      document.getElementById('simon-step-badge').textContent = `0 / ${len}`;
+    }
 
-      const [norm, glitch] = GLITCH_PAIRS[Math.floor(Math.random() * GLITCH_PAIRS.length)];
+    function setupGlitchWave(wave) {
+      cp9.glitchWave = wave;
+      let idx = Math.floor(Math.random() * GLITCH_PAIRS.length);
+      if (idx === cp9.usedGlitchIdx) idx = (idx + 1) % GLITCH_PAIRS.length;
+      cp9.usedGlitchIdx = idx;
+
+      const [norm, glitch] = GLITCH_PAIRS[idx];
       cp9.normalCode = norm;
       const raw = Array(15).fill(norm).concat([glitch, glitch, glitch]);
       cp9.cells = shuffle(raw).map((code, id) => ({
@@ -648,6 +699,32 @@
         found: false
       }));
       cp9.glitchesFound = 0;
+    }
+
+    function setupTraceWave(wave) {
+      cp9.traceWave = wave;
+      cp9.traceNext = 1;
+      cp9.traceNodes = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+    }
+
+    function setupCipherPairs() {
+      const deck = shuffle([...CIPHER_ICONS, ...CIPHER_ICONS]);
+      cp9.pairCards = deck.map((icon, id) => ({
+        id,
+        icon,
+        flipped: false,
+        matched: false
+      }));
+      cp9.flippedIndices = [];
+      cp9.matchedPairs = 0;
+      cp9.pairLock = false;
+    }
+
+    function generateCP9Data() {
+      setupSimonRound(1);
+      setupGlitchWave(1);
+      setupTraceWave(1);
+      setupCipherPairs();
 
       cp9.zoneStart = Math.floor(20 + Math.random() * 42);
       cp9.zoneWidth = 24;
@@ -663,21 +740,21 @@
         return;
       }
       cp9.team = name;
-      cp9.timeLeft = 300;
+      cp9.timeLeft = 420;
       cp9.layer = 1;
       cp9.errors = 0;
       cp9.cleared = 0;
       generateCP9Data();
 
       document.getElementById('cp9-errors').textContent = '0';
-      document.getElementById('cp9-progress').textContent = '1 / 3';
+      document.getElementById('cp9-progress').textContent = '1 / 5';
       document.getElementById('cp9-timer').textContent = formatTime(cp9.timeLeft);
       document.getElementById('cp9-timer').className = 'text-lg font-bold text-cyan-400';
       document.getElementById('cp9-msg').classList.add('hidden');
 
-      document.getElementById('cp9-layer-1').classList.remove('hidden');
-      document.getElementById('cp9-layer-2').classList.add('hidden');
-      document.getElementById('cp9-layer-3').classList.add('hidden');
+      [1, 2, 3, 4, 5].forEach(n => {
+        document.getElementById(`cp9-layer-${n}`).classList.toggle('hidden', n !== 1);
+      });
 
       document.getElementById('cp9-start').classList.add('hidden');
       document.getElementById('cp9-play').classList.remove('hidden');
@@ -710,13 +787,23 @@
       }
     }
 
+    function advanceCP9Layer(nextLayer) {
+      cp9.cleared = nextLayer - 1;
+      cp9.layer = nextLayer;
+      document.getElementById('cp9-progress').textContent = `${nextLayer} / 5`;
+      [1, 2, 3, 4, 5].forEach(n => {
+        document.getElementById(`cp9-layer-${n}`).classList.toggle('hidden', n !== nextLayer);
+      });
+    }
+
     // --- Layer 1: Signal Memory ---
     function playSimonSequence() {
       if (cp9.layer !== 1) return;
       cp9.simonPlaying = true;
       cp9.simonInput = [];
-      document.getElementById('simon-step-badge').textContent = '0 / 5';
-      document.getElementById('simon-status').textContent = 'WATCH THE FLASHING SEQUENCE...';
+      const total = cp9.simonSeq.length;
+      document.getElementById('simon-step-badge').textContent = `0 / ${total}`;
+      document.getElementById('simon-status').textContent = `WATCH THE ${total}-FLASH SEQUENCE...`;
       document.getElementById('simon-replay-btn').disabled = true;
 
       cp9.simonSeq.forEach((padIdx, i) => {
@@ -725,15 +812,15 @@
           if (pad) pad.classList.add('lit');
           setTimeout(() => {
             if (pad) pad.classList.remove('lit');
-          }, 360);
-        }, i * 620 + 250);
+          }, 340);
+        }, i * 580 + 250);
       });
 
       setTimeout(() => {
         cp9.simonPlaying = false;
-        document.getElementById('simon-status').textContent = 'YOUR TURN! Tap the 5 colors in the exact same order:';
+        document.getElementById('simon-status').textContent = `YOUR TURN! Tap the ${total} colors in exact order:`;
         document.getElementById('simon-replay-btn').disabled = false;
-      }, cp9.simonSeq.length * 620 + 350);
+      }, total * 580 + 350);
     }
 
     function tapSimonPad(padIdx) {
@@ -744,18 +831,21 @@
         setTimeout(() => pad.classList.remove('lit'), 180);
       }
 
+      const total = cp9.simonSeq.length;
       const expected = cp9.simonSeq[cp9.simonInput.length];
       if (padIdx === expected) {
         cp9.simonInput.push(padIdx);
-        document.getElementById('simon-step-badge').textContent = `${cp9.simonInput.length} / 5`;
-        if (cp9.simonInput.length === 5) {
-          cp9.cleared = 1;
-          cp9.layer = 2;
-          cp9Feedback('LAYER 1 BREACHED! (+30 PTS)', false);
-          document.getElementById('cp9-progress').textContent = '2 / 3';
-          document.getElementById('cp9-layer-1').classList.add('hidden');
-          document.getElementById('cp9-layer-2').classList.remove('hidden');
-          renderGlitchGrid();
+        document.getElementById('simon-step-badge').textContent = `${cp9.simonInput.length} / ${total}`;
+        if (cp9.simonInput.length === total) {
+          if (cp9.simonRound === 1) {
+            cp9Feedback('ROUND 1 CLEAR! Initializing 6-flash sequence...', false);
+            setupSimonRound(2);
+            setTimeout(() => playSimonSequence(), 700);
+          } else {
+            cp9Feedback('LAYER 1 BREACHED! (+18 PTS)', false);
+            advanceCP9Layer(2);
+            renderGlitchGrid();
+          }
         }
       } else {
         cp9.simonInput = [];
@@ -766,6 +856,7 @@
 
     // --- Layer 2: Glitch Scanner ---
     function renderGlitchGrid() {
+      document.getElementById('glitch-wave-num').textContent = cp9.glitchWave;
       document.getElementById('glitch-normal-label').textContent = cp9.normalCode;
       document.getElementById('glitch-count-badge').textContent = `${cp9.glitchesFound} / 3 FOUND`;
       const grid = document.getElementById('glitch-grid');
@@ -791,13 +882,15 @@
         cp9.glitchesFound++;
         renderGlitchGrid();
         if (cp9.glitchesFound === 3) {
-          cp9.cleared = 2;
-          cp9.layer = 3;
-          cp9Feedback('LAYER 2 BREACHED! (+30 PTS)', false);
-          document.getElementById('cp9-progress').textContent = '3 / 3';
-          document.getElementById('cp9-layer-2').classList.add('hidden');
-          document.getElementById('cp9-layer-3').classList.remove('hidden');
-          startReflexLoop();
+          if (cp9.glitchWave === 1) {
+            cp9Feedback('WAVE 1 PURGED! Loading Wave 2...', false);
+            setupGlitchWave(2);
+            setTimeout(() => renderGlitchGrid(), 450);
+          } else {
+            cp9Feedback('LAYER 2 BREACHED! (+18 PTS)', false);
+            advanceCP9Layer(3);
+            renderTraceGrid();
+          }
         } else {
           cp9Feedback(`CORRUPTED CODE ISOLATED! (${cp9.glitchesFound}/3)`, false);
         }
@@ -806,12 +899,113 @@
       }
     }
 
-    // --- Layer 3: Firewall Lock-On ---
+    // --- Layer 3: Node Trace (1 to 12) ---
+    function renderTraceGrid() {
+      document.getElementById('trace-wave-num').textContent = cp9.traceWave;
+      document.getElementById('trace-step-badge').textContent = `NEXT: ${cp9.traceNext} / 12`;
+      const grid = document.getElementById('trace-grid');
+      grid.innerHTML = cp9.traceNodes.map(num => {
+        const done = num < cp9.traceNext;
+        return `
+          <button onclick="tapTraceNode(${num})" ${done ? 'disabled' : ''}
+            class="h-14 rounded-xl font-mono-tech text-base font-extrabold border transition ${
+              done
+                ? 'bg-emerald-950/60 border-emerald-500/60 text-emerald-400 opacity-55'
+                : 'bg-slate-950 border-slate-700 hover:border-cyan-400 text-white active:scale-95'
+            }">
+            ${done ? '✓' : num}
+          </button>`;
+      }).join('');
+    }
+
+    function tapTraceNode(num) {
+      if (cp9.layer !== 3) return;
+      if (num === cp9.traceNext) {
+        cp9.traceNext++;
+        if (cp9.traceNext > 12) {
+          if (cp9.traceWave === 1) {
+            cp9Feedback('WAVE 1 TRACED! Scrambling Wave 2...', false);
+            setupTraceWave(2);
+            renderTraceGrid();
+          } else {
+            cp9Feedback('LAYER 3 BREACHED! (+18 PTS)', false);
+            advanceCP9Layer(4);
+            renderPairsGrid();
+          }
+        } else {
+          renderTraceGrid();
+        }
+      } else {
+        cp9Feedback(`OUT OF SEQUENCE! (-3 PTS) Tap node #${cp9.traceNext} next.`, true);
+      }
+    }
+
+    // --- Layer 4: Cipher Match (Memory Pairs) ---
+    function renderPairsGrid() {
+      document.getElementById('pairs-count-badge').textContent = `${cp9.matchedPairs} / 6 PAIRS`;
+      const grid = document.getElementById('pairs-grid');
+      grid.innerHTML = cp9.pairCards.map((card, i) => {
+        const show = card.flipped || card.matched;
+        return `
+          <button onclick="tapPairCard(${i})" ${show ? 'disabled' : ''}
+            class="h-16 rounded-xl text-2xl font-mono-tech font-bold border-2 transition flex items-center justify-center ${
+              card.matched
+                ? 'bg-emerald-950/70 border-emerald-500 text-emerald-300'
+                : card.flipped
+                  ? 'bg-cyan-950 border-cyan-400 text-white'
+                  : 'bg-slate-950 border-slate-700 hover:border-cyan-400 text-slate-600 active:scale-95'
+            }">
+            ${show ? card.icon : '?'}
+          </button>`;
+      }).join('');
+    }
+
+    function tapPairCard(idx) {
+      if (cp9.layer !== 4 || cp9.pairLock) return;
+      const card = cp9.pairCards[idx];
+      if (!card || card.flipped || card.matched) return;
+
+      card.flipped = true;
+      cp9.flippedIndices.push(idx);
+      renderPairsGrid();
+
+      if (cp9.flippedIndices.length === 2) {
+        cp9.pairLock = true;
+        const [a, b] = cp9.flippedIndices;
+        if (cp9.pairCards[a].icon === cp9.pairCards[b].icon) {
+          cp9.pairCards[a].matched = true;
+          cp9.pairCards[b].matched = true;
+          cp9.matchedPairs++;
+          cp9.flippedIndices = [];
+          cp9.pairLock = false;
+          renderPairsGrid();
+
+          if (cp9.matchedPairs === 6) {
+            cp9Feedback('LAYER 4 BREACHED! (+18 PTS)', false);
+            advanceCP9Layer(5);
+            startReflexLoop();
+          } else {
+            cp9Feedback(`KEY PAIR MATCHED! (${cp9.matchedPairs}/6)`, false);
+          }
+        } else {
+          cp9Feedback('MISMATCHED KEYS! (-3 PTS)', true);
+          setTimeout(() => {
+            cp9.pairCards[a].flipped = false;
+            cp9.pairCards[b].flipped = false;
+            cp9.flippedIndices = [];
+            cp9.pairLock = false;
+            renderPairsGrid();
+          }, 550);
+        }
+      }
+    }
+
+    // --- Layer 5: Firewall Lock-On (4 Locks) ---
     function updateReflexZoneUI() {
       const zone = document.getElementById('reflex-zone');
       zone.style.left = `${cp9.zoneStart}%`;
       zone.style.width = `${cp9.zoneWidth}%`;
-      document.getElementById('reflex-count-badge').textContent = `${cp9.reflexHits} / 3 LOCKED`;
+      document.getElementById('reflex-count-badge').textContent = `${cp9.reflexHits} / 4 LOCKED`;
     }
 
     function startReflexLoop() {
@@ -819,8 +1013,8 @@
       updateReflexZoneUI();
 
       function step() {
-        if (cp9.layer !== 3) return;
-        const speed = 0.85 + cp9.reflexHits * 0.30;
+        if (cp9.layer !== 5) return;
+        const speed = 0.85 + cp9.reflexHits * 0.25;
         cp9.cursorPos += cp9.cursorDir * speed;
         if (cp9.cursorPos >= 96) {
           cp9.cursorPos = 96;
@@ -837,17 +1031,17 @@
     }
 
     function triggerReflexLock() {
-      if (cp9.layer !== 3) return;
+      if (cp9.layer !== 5) return;
       const hit = cp9.cursorPos >= cp9.zoneStart && cp9.cursorPos <= (cp9.zoneStart + cp9.zoneWidth);
       if (hit) {
         cp9.reflexHits++;
-        if (cp9.reflexHits >= 3) {
-          cp9.cleared = 3;
+        if (cp9.reflexHits >= 4) {
+          cp9.cleared = 5;
           finishCP9(true);
         } else {
           cp9.zoneStart = Math.floor(15 + Math.random() * 52);
           updateReflexZoneUI();
-          cp9Feedback(`SIGNAL LOCKED (${cp9.reflexHits}/3)! Speed increasing...`, false);
+          cp9Feedback(`SIGNAL LOCKED (${cp9.reflexHits}/4)! Speed increasing...`, false);
         }
       } else {
         cp9Feedback('MISSED GREEN ZONE! (-3 PTS) Time your tap!', true);
@@ -855,8 +1049,8 @@
     }
 
     function finishCP9(completed) {
-      let score = cp9.cleared * 30;
-      const speedBonus = (completed && cp9.timeLeft >= 120) ? 10 : 0; // 2:00+ left
+      let score = cp9.cleared * 18;
+      const speedBonus = (completed && cp9.timeLeft >= 150) ? 10 : 0; // 2:30+ left
       score = Math.max(0, score + speedBonus - (cp9.errors * 3));
       showFinalResult({
         station: 'CP 9: CYBER BREACH',
@@ -1154,7 +1348,7 @@
             <p class="text-xs text-slate-400 text-center">Tap the FIRST word from the Manual's list that appears below:</p>
             <div class="grid grid-cols-2 gap-2.5">
               ${curr.options.map(w => `
-                <button onclick="pressGlitchWord('${w.replace(/'/g, "\\'")}')"
+                <button onclick="pressGlitchWord('${w.replace(/'/g, "\'")}')"
                   class="py-4 px-2 rounded-xl bg-slate-950 border-2 border-slate-700 hover:border-amber-400 active:scale-95 font-mono-tech font-bold text-base text-white">
                   ${w}
                 </button>`).join('')}
@@ -1382,9 +1576,3 @@
   </script>
 </body>
 </html>
-"""
-
-with open("index.html", "w", encoding="utf-8") as f:
-    f.write(html_code)
-
-print("Saved index.html successfully! Bytes:", len(html_code))
