@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>X-HUNT // CP 9 & CP 10 Terminal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: #090d16;
+      color: #e2e8f0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    .font-mono-tech {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Subtle cyber grid background */
+    .cyber-bg {
+      background-image: 
+        linear-gradient(to right, rgba(30, 41, 59, 0.35) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(30, 41, 59, 0.35) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    @keyframes strikeFlash {
+      0%, 100% { background-color: #090d16; }
+      30% { background-color: #450a0a; }
+    }
+
+    .flash-red {
+      animation: strikeFlash 0.45s ease-out;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 12px rgba(6, 182, 212, 0.35); }
+      50% { box-shadow: 0 0 24px rgba(6, 182, 212, 0.7); }
+    }
+
+    .glow-cyan {
+      animation: pulseGlow 2.5s infinite;
+    }
+
+    .wire-btn {
+      position: relative;
+      height: 36px;
+      border-radius: 9999px;
+      transition: transform 0.15s ease, opacity 0.2s ease;
+    }
+
+    .wire-btn:active {
+      transform: scale(0.97);
+    }
+
+    .wire-cut {
+      opacity: 0.35;
+      background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 8px,
+        rgba(0,0,0,0.6) 8px,
+        rgba(0,0,0,0.6) 16px
+      );
+    }
+  </style>
+</head>
+<body class="cyber-bg min-h-screen flex flex-col">
+
+  <!-- TOP BAR -->
+  <header class="sticky top-0 z-30 bg-slate-950/90 backdrop-blur border-b border-slate-800 px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+      <span id="header-title" class="font-mono-tech font-bold text-sm tracking-wider text-cyan-400">X-HUNT // MISSION HUB</span>
+    </div>
+    <button id="home-btn" onclick="goHome()" class="hidden text-xs font-mono-tech px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">
+      EXIT
+    </button>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main id="app" class="flex-1 w-full max-w-lg mx-auto p-4 pb-12">
+
+    <!-- ==================== VIEW 0: MISSION HUB ==================== -->
+    <section id="view-hub" class="space-y-5 pt-2">
+      <div class="text-center space-y-1.5">
+        <p class="font-mono-tech text-xs text-cyan-400 tracking-widest uppercase">Adrianna's Checkpoints</p>
+        <h1 class="text-2xl font-bold text-white tracking-tight">Select Station Mode</h1>
+        <p class="text-sm text-slate-400">Scan a station QR code or choose a module below to start.</p>
+      </div>
+
+      <div class="space-y-3.5">
+        <!-- CP 9 Card -->
+        <button onclick="openMode('cp9')" class="w-full text-left p-4 rounded-xl bg-slate-900/90 border border-cyan-500/40 hover:border-cyan-400 transition group">
+          <div class="flex items-center justify-between mb-1">
+            <span class="font-mono-tech text-xs font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300">CP 9 • 5–8 MINS</span>
+            <span class="text-cyan-400 group-hover:translate-x-1 transition">→</span>
+          </div>
+          <h2 class="text-lg font-bold text-white">Logic Gateway</h2>
+          <p class="text-xs text-slate-400 mt-0.5">3-Lock Security Bypass: Code Crack, Glitching AI, and Cyber Equation.</p>
+        </button>
+
+        <!-- CP 10 Hacker Card -->
+        <button onclick="openMode('cp10-hacker')" class="w-full text-left p-4 rounded-xl bg-slate-900/90 border border-amber-500/40 hover:border-amber-400 transition group">
+          <div class="flex items-center justify-between mb-1">
+            <span class="font-mono-tech text-xs font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">CP 10 • QR 1 (HACKER)</span>
+            <span class="text-amber-400 group-hover:translate-x-1 transition">→</span>
+          </div>
+          <h2 class="text-lg font-bold text-white">The Mainframe — Terminal</h2>
+          <p class="text-xs text-slate-400 mt-0.5">12-min countdown. Defuse 5 live modules without showing your screen!</p>
+        </button>
+
+        <!-- CP 10 Manual Card -->
+        <button onclick="openMode('cp10-manual')" class="w-full text-left p-4 rounded-xl bg-slate-900/90 border border-emerald-500/40 hover:border-emerald-400 transition group">
+          <div class="flex items-center justify-between mb-1">
+            <span class="font-mono-tech text-xs font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">CP 10 • QR 2 (DECODERS)</span>
+            <span class="text-emerald-400 group-hover:translate-x-1 transition">→</span>
+          </div>
+          <h2 class="text-lg font-bold text-white">The Mainframe — Decryption Manual</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Reference rules & digital scratchpad for teammates shouting instructions.</p>
+        </button>
+      </div>
+
+      <!-- Marshal QR Helper -->
+      <div class="mt-6 p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-400 space-y-2">
+        <p class="font-mono-tech text-slate-300 font-bold">📌 MARSHAL QR CODE TIP:</p>
+        <p>Once hosted online, append these tags to your URL to create direct QR codes for each role:</p>
+        <div class="font-mono-tech text-[11px] bg-slate-950 p-2.5 rounded border border-slate-800 space-y-1 text-cyan-300 overflow-x-auto">
+          <div>CP 9: <span class="text-slate-300">?mode=cp9</span></div>
+          <div>CP 10 Hacker: <span class="text-slate-300">?mode=cp10-hacker</span></div>
+          <div>CP 10 Manual: <span class="text-slate-300">?mode=cp10-manual</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 1: CP 9 LOGIC GATEWAY ==================== -->
+    <section id="view-cp9" class="hidden space-y-4">
+      <!-- Start Screen -->
+      <div id="cp9-start" class="space-y-5 pt-4">
+        <div class="p-5 rounded-2xl bg-slate-900 border border-cyan-500/40 space-y-4">
+          <div class="inline-block font-mono-tech text-xs px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-300">CHECKPOINT 9</div>
+          <h1 class="text-2xl font-bold text-white">LOGIC GATEWAY</h1>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Bypass <strong>3 security locks</strong> to breach the firewall.
+          </p>
+          <ul class="text-xs text-slate-400 space-y-1.5 font-mono-tech bg-slate-950 p-3 rounded-lg border border-slate-800">
+            <li>• Time Limit: 8 Minutes</li>
+            <li>• +30 pts per lock cleared (Max 90)</li>
+            <li>• +10 pts Speed Bonus (finish under 5 mins)</li>
+            <li>• -3 pts per wrong attempt</li>
+          </ul>
+          <div class="space-y-2 pt-1">
+            <label class="block text-xs font-mono-tech text-slate-400 uppercase">Enter Team Name</label>
+            <input id="cp9-team-input" type="text" placeholder="e.g., Team Phoenix" maxlength="24"
+              class="w-full px-3.5 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white focus:outline-none focus:border-cyan-400 font-mono-tech" />
+          </div>
+          <button onclick="startCP9()" class="w-full py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold font-mono-tech tracking-wide glow-cyan transition">
+            BREACH GATEWAY →
+          </button>
+        </div>
+      </div>
+
+      <!-- Active CP 9 Game -->
+      <div id="cp9-play" class="hidden space-y-4">
+        <!-- HUD -->
+        <div class="grid grid-cols-3 gap-2 font-mono-tech text-center">
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-2">
+            <div class="text-[10px] text-slate-400">TIME LEFT</div>
+            <div id="cp9-timer" class="text-lg font-bold text-cyan-400">08:00</div>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-2">
+            <div class="text-[10px] text-slate-400">LOCK</div>
+            <div id="cp9-progress" class="text-lg font-bold text-white">1 / 3</div>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-2">
+            <div class="text-[10px] text-slate-400">PENALTIES</div>
+            <div id="cp9-errors" class="text-lg font-bold text-rose-400">0</div>
+          </div>
+        </div>
+
+        <!-- Feedback Banner -->
+        <div id="cp9-msg" class="hidden text-center font-mono-tech text-xs py-2 px-3 rounded-lg"></div>
+
+        <!-- Lock 1: Code Crack -->
+        <div id="cp9-lock-1" class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="font-mono-tech text-xs text-cyan-400 font-bold">LOCK 1 // 3-DIGIT CODE CRACK</span>
+            <span class="text-xs text-slate-500">+30 PTS</span>
+          </div>
+          <p class="text-sm text-slate-300">Deduce the 3-digit PIN using the security logs below:</p>
+
+          <div class="space-y-2 font-mono-tech text-xs bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+              <span class="text-base font-bold text-cyan-300 tracking-widest">6 - 8 - 2</span>
+              <span class="text-slate-300 text-right">1 digit correct &amp; right spot</span>
+            </div>
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+              <span class="text-base font-bold text-cyan-300 tracking-widest">6 - 1 - 4</span>
+              <span class="text-slate-300 text-right">1 digit correct, wrong spot</span>
+            </div>
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+              <span class="text-base font-bold text-cyan-300 tracking-widest">2 - 0 - 6</span>
+              <span class="text-slate-300 text-right">2 digits correct, wrong spots</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-base font-bold text-rose-400 tracking-widest">7 - 3 - 8</span>
+              <span class="text-slate-400 text-right">Nothing is correct</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <input id="cp9-l1-input" type="tel" maxlength="3" placeholder="000"
+              class="flex-1 text-center text-2xl tracking-[0.5em] font-mono-tech font-bold py-3 rounded-xl bg-slate-950 border border-slate-700 text-white focus:outline-none focus:border-cyan-400" />
+            <button onclick="checkCP9Lock1()" class="px-5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold font-mono-tech">
+              UNLOCK
+            </button>
+          </div>
+        </div>
+
+        <!-- Lock 2: Glitching AI -->
+        <div id="cp9-lock-2" class="hidden p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="font-mono-tech text-xs text-cyan-400 font-bold">LOCK 2 // THE GLITCHING AI</span>
+            <span class="text-xs text-slate-500">+30 PTS</span>
+          </div>
+          <p class="text-sm text-slate-300">
+            Three security bots guard 3 doors. <strong class="text-amber-300">ONLY ONE bot is telling the truth.</strong> The other two are lying. Tap the real exit door!
+          </p>
+
+          <div class="space-y-2.5 text-sm bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+            <div class="flex gap-2.5 items-start">
+              <span class="font-mono-tech text-xs font-bold px-2 py-0.5 rounded bg-slate-800 text-cyan-300 shrink-0">BOT A</span>
+              <p class="text-slate-200">"The exit is the <strong class="text-rose-400">RED</strong> door."</p>
+            </div>
+            <div class="flex gap-2.5 items-start">
+              <span class="font-mono-tech text-xs font-bold px-2 py-0.5 rounded bg-slate-800 text-cyan-300 shrink-0">BOT B</span>
+              <p class="text-slate-200">"The exit is <strong>NOT</strong> the <strong class="text-blue-400">BLUE</strong> door."</p>
+            </div>
+            <div class="flex gap-2.5 items-start">
+              <span class="font-mono-tech text-xs font-bold px-2 py-0.5 rounded bg-slate-800 text-cyan-300 shrink-0">BOT C</span>
+              <p class="text-slate-200">"Bot A is lying."</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2.5 pt-1">
+            <button onclick="checkCP9Lock2('RED')" class="py-4 rounded-xl bg-rose-600/20 border-2 border-rose-500 hover:bg-rose-600/40 text-rose-300 font-bold font-mono-tech">
+              🚪 RED
+            </button>
+            <button onclick="checkCP9Lock2('BLUE')" class="py-4 rounded-xl bg-blue-600/20 border-2 border-blue-500 hover:bg-blue-600/40 text-blue-300 font-bold font-mono-tech">
+              🚪 BLUE
+            </button>
+            <button onclick="checkCP9Lock2('GREEN')" class="py-4 rounded-xl bg-emerald-600/20 border-2 border-emerald-500 hover:bg-emerald-600/40 text-emerald-300 font-bold font-mono-tech">
+              🚪 GREEN
+            </button>
+          </div>
+        </div>
+
+        <!-- Lock 3: Cyber Equation -->
+        <div id="cp9-lock-3" class="hidden p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="font-mono-tech text-xs text-cyan-400 font-bold">LOCK 3 // CYBER EQUATION</span>
+            <span class="text-xs text-slate-500">+30 PTS</span>
+          </div>
+          <p class="text-sm text-slate-300">Solve the final override value. Watch the math symbols carefully!</p>
+
+          <div class="space-y-3 font-mono-tech text-lg bg-slate-950 p-4 rounded-xl border border-slate-800 text-center">
+            <div>🖥️ + 🖥️ + 🖥️ = <span class="text-cyan-400 font-bold">30</span></div>
+            <div>🖥️ + 🔒 + 🔒 = <span class="text-cyan-400 font-bold">20</span></div>
+            <div>🔒 + 🔑 + 🔑 = <span class="text-cyan-400 font-bold">9</span></div>
+            <div class="border-t border-slate-800 pt-3 text-xl font-bold text-amber-300">
+              🖥️ + 🔒 × 🔑 = ?
+            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <input id="cp9-l3-input" type="tel" maxlength="3" placeholder="??"
+              class="flex-1 text-center text-2xl font-mono-tech font-bold py-3 rounded-xl bg-slate-950 border border-slate-700 text-white focus:outline-none focus:border-cyan-400" />
+            <button onclick="checkCP9Lock3()" class="px-5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold font-mono-tech">
+              SUBMIT
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 2: CP 10 HACKER TERMINAL ==================== -->
+    <section id="view-cp10-hacker" class="hidden space-y-4">
+      <!-- Start Screen -->
+      <div id="cp10-start" class="space-y-5 pt-4">
+        <div class="p-5 rounded-2xl bg-slate-900 border border-amber-500/40 space-y-4">
+          <div class="inline-block font-mono-tech text-xs px-2.5 py-1 rounded bg-amber-500/20 text-amber-300">CHECKPOINT 10 • HACKER ROLE</div>
+          <h1 class="text-2xl font-bold text-white">THE MAINFRAME</h1>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            <strong>DO NOT SHOW YOUR SCREEN</strong> to your teammates! Describe what you see and follow their instructions from the Decryption Manual.
+          </p>
+          <ul class="text-xs text-slate-400 space-y-1.5 font-mono-tech bg-slate-950 p-3 rounded-lg border border-slate-800">
+            <li>• Time Limit: 12 Minutes</li>
+            <li>• 5 Security Modules (+20 pts each = 100 pts)</li>
+            <li>• Wrong Click = Strike (-5 pts)</li>
+            <li>• Every team gets a randomized puzzle!</li>
+          </ul>
+          <div class="space-y-2 pt-1">
+            <label class="block text-xs font-mono-tech text-slate-400 uppercase">Enter Team Name</label>
+            <input id="cp10-team-input" type="text" placeholder="e.g., Team Phoenix" maxlength="24"
+              class="w-full px-3.5 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white focus:outline-none focus:border-amber-400 font-mono-tech" />
+          </div>
+          <button onclick="startCP10()" class="w-full py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold font-mono-tech tracking-wide transition">
+            INITIATE HACK (12:00) →
+          </button>
+        </div>
+      </div>
+
+      <!-- Active CP 10 Game -->
+      <div id="cp10-play" class="hidden space-y-4">
+        <!-- HUD -->
+        <div class="grid grid-cols-3 gap-2 font-mono-tech text-center">
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-2">
+            <div class="text-[10px] text-slate-400">COUNTDOWN</div>
+            <div id="cp10-timer" class="text-lg font-bold text-amber-400">12:00</div>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-2">
+            <div class="text-[10px] text-slate-400">MODULES</div>
+            <div id="cp10-cleared" class="text-lg font-bold text-emerald-400">0 / 5</div>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-2">
+            <div class="text-[10px] text-slate-400">STRIKES (-5)</div>
+            <div id="cp10-strikes" class="text-lg font-bold text-rose-400">0</div>
+          </div>
+        </div>
+
+        <!-- Module Tabs -->
+        <div id="cp10-tabs" class="grid grid-cols-5 gap-1.5 font-mono-tech text-xs">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Feedback Banner -->
+        <div id="cp10-msg" class="hidden text-center font-mono-tech text-xs py-2 px-3 rounded-lg"></div>
+
+        <!-- Active Module Container -->
+        <div id="cp10-module-box" class="p-5 rounded-2xl bg-slate-900 border border-slate-800 min-h-[340px]">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 3: CP 10 DECRYPTION MANUAL ==================== -->
+    <section id="view-cp10-manual" class="hidden space-y-4">
+      <div class="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/40">
+        <div class="font-mono-tech text-xs text-emerald-400 font-bold">DECODERS' MANUAL • TOP SECRET</div>
+        <h1 class="text-xl font-bold text-white mt-0.5">Mainframe Decryption Guide</h1>
+        <p class="text-xs text-slate-300 mt-1">Ask your Hacker what is on their screen. Read rules <strong>top-to-bottom</strong> and stop at the first rule that matches!</p>
+      </div>
+
+      <!-- Manual Module 1 -->
+      <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2.5">
+        <h2 class="font-mono-tech font-bold text-amber-400 text-sm">MODULE 1: SERVER WIRES</h2>
+        <p class="text-xs text-slate-400">Ask for the <strong>5 wire colors (top to bottom)</strong> and the <strong>Serial Number</strong>. Follow the FIRST matching rule:</p>
+        <ol class="list-decimal list-inside text-xs text-slate-200 space-y-1.5 bg-slate-950 p-3 rounded-lg border border-slate-800">
+          <li>If there are <strong>NO RED</strong> wires → Cut the <strong>2nd wire</strong>.</li>
+          <li>Else if the <strong>last (5th) wire is WHITE</strong> → Cut the <strong>4th wire</strong>.</li>
+          <li>Else if there is <strong>more than one BLUE</strong> wire AND the <strong>Serial ends in an ODD digit (1,3,5,7,9)</strong> → Cut the <strong>LAST BLUE wire</strong>.</li>
+          <li>Else if there is <strong>exactly ONE YELLOW</strong> wire → Cut the <strong>1st wire</strong>.</li>
+          <li>Otherwise → Cut the <strong>3rd wire</strong>.</li>
+        </ol>
+      </div>
+
+      <!-- Manual Module 2 -->
+      <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2.5">
+        <h2 class="font-mono-tech font-bold text-amber-400 text-sm">MODULE 2: THE OVERRIDE BUTTON</h2>
+        <p class="text-xs text-slate-400">Ask for the button's <strong>COLOR</strong> and <strong>WORD</strong>. Follow the FIRST matching rule:</p>
+        <ol class="list-decimal list-inside text-xs text-slate-200 space-y-1.5 bg-slate-950 p-3 rounded-lg border border-slate-800">
+          <li>If the button is <strong class="text-rose-400">RED</strong> and says <strong>"HOLD"</strong> → <strong>TAP ONCE</strong>.</li>
+          <li>Else if the button says <strong>"DETONATE"</strong> → <strong>DOUBLE-TAP</strong> quickly.</li>
+          <li>Else if the button is <strong class="text-blue-400">BLUE</strong> or <strong class="text-amber-300">YELLOW</strong> → <strong>HOLD for 3 seconds</strong>.</li>
+          <li>Otherwise → <strong>TAP ONCE</strong>.</li>
+        </ol>
+      </div>
+
+      <!-- Manual Module 3 -->
+      <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2.5">
+        <h2 class="font-mono-tech font-bold text-amber-400 text-sm">MODULE 3: SYMBOL KEYPAD</h2>
+        <p class="text-xs text-slate-400">Find the ONE column containing all 4 symbols on the Hacker's screen. Tell them to press the 4 symbols in order from <strong>TOP to BOTTOM</strong>:</p>
+        <div class="grid grid-cols-3 gap-2 text-center font-mono-tech text-xs bg-slate-950 p-3 rounded-lg border border-slate-800">
+          <div class="space-y-2 border-r border-slate-800 pr-2">
+            <div class="text-cyan-400 font-bold border-b border-slate-800 pb-1">COL A</div>
+            <div class="text-lg">⚡</div>
+            <div class="text-lg">👁️</div>
+            <div class="text-lg">⚓</div>
+            <div class="text-lg">☣️</div>
+            <div class="text-lg">🌙</div>
+            <div class="text-lg">🔑</div>
+          </div>
+          <div class="space-y-2 border-r border-slate-800 pr-2">
+            <div class="text-cyan-400 font-bold border-b border-slate-800 pb-1">COL B</div>
+            <div class="text-lg">🔥</div>
+            <div class="text-lg">⚡</div>
+            <div class="text-lg">💀</div>
+            <div class="text-lg">💎</div>
+            <div class="text-lg">🌙</div>
+            <div class="text-lg">🧲</div>
+          </div>
+          <div class="space-y-2">
+            <div class="text-cyan-400 font-bold border-b border-slate-800 pb-1">COL C</div>
+            <div class="text-lg">🚀</div>
+            <div class="text-lg">👁️</div>
+            <div class="text-lg">💎</div>
+            <div class="text-lg">⏳</div>
+            <div class="text-lg">🔑</div>
+            <div class="text-lg">🎯</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manual Module 4 -->
+      <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2.5">
+        <h2 class="font-mono-tech font-bold text-amber-400 text-sm">MODULE 4: GLITCH WORDS (2 ROUNDS)</h2>
+        <p class="text-xs text-slate-400">Ask for the <strong>TOP PROMPT WORD</strong> (spell it!). Read its list from left to right and tell the Hacker to tap the <strong>FIRST word that appears on their buttons</strong>:</p>
+        <div class="space-y-2 font-mono-tech text-[11px] bg-slate-950 p-3 rounded-lg border border-slate-800">
+          <div><span class="text-cyan-400 font-bold">THEIR:</span> THERE, THEY'RE, THEIR, WHERE, WERE, WEAR</div>
+          <div><span class="text-cyan-400 font-bold">WAIT:</span> WEIGHT, WAIT, WHAT, WATT, WHITE, WRITE</div>
+          <div><span class="text-cyan-400 font-bold">RIGHT:</span> WRITE, RITE, RIGHT, LIGHT, NIGHT, BRIGHT</div>
+          <div><span class="text-cyan-400 font-bold">YOU'RE:</span> YOUR, YOU'RE, YOU ARE, UR, YORE, OUR</div>
+          <div><span class="text-cyan-400 font-bold">SEE:</span> SEA, C, SEE, SAW, SAY, SIGH</div>
+          <div><span class="text-cyan-400 font-bold">NO:</span> KNOW, NOW, NO, NONE, NEW, KNEW</div>
+        </div>
+      </div>
+
+      <!-- Manual Module 5 -->
+      <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
+        <h2 class="font-mono-tech font-bold text-amber-400 text-sm">MODULE 5: CORE MEMORY (3 STAGES)</h2>
+        <p class="text-xs text-slate-400">Write down the <strong>POSITION (1–4 from left)</strong> and <strong>LABEL (number printed on it)</strong> of the button pressed in Stages 1 &amp; 2!</p>
+        
+        <div class="space-y-2.5 text-xs bg-slate-950 p-3 rounded-lg border border-slate-800">
+          <div>
+            <div class="font-mono-tech font-bold text-cyan-400 mb-1">STAGE 1:</div>
+            <ul class="space-y-0.5 text-slate-300">
+              <li>• Display <strong>1</strong> → Press <strong>Position 2</strong></li>
+              <li>• Display <strong>2</strong> → Press <strong>Position 4</strong></li>
+              <li>• Display <strong>3</strong> → Press <strong>Position 1</strong></li>
+              <li>• Display <strong>4</strong> → Press <strong>Position 3</strong></li>
+            </ul>
+          </div>
+          <div class="border-t border-slate-800 pt-2">
+            <div class="font-mono-tech font-bold text-cyan-400 mb-1">STAGE 2:</div>
+            <ul class="space-y-0.5 text-slate-300">
+              <li>• Display <strong>1</strong> → Press button labeled <strong>"4"</strong></li>
+              <li>• Display <strong>2</strong> → Press <strong>same POSITION</strong> as Stage 1</li>
+              <li>• Display <strong>3</strong> → Press <strong>Position 1</strong></li>
+              <li>• Display <strong>4</strong> → Press <strong>same LABEL</strong> as Stage 1</li>
+            </ul>
+          </div>
+          <div class="border-t border-slate-800 pt-2">
+            <div class="font-mono-tech font-bold text-cyan-400 mb-1">STAGE 3:</div>
+            <ul class="space-y-0.5 text-slate-300">
+              <li>• Display <strong>1</strong> → Press <strong>same LABEL</strong> as Stage 2</li>
+              <li>• Display <strong>2</strong> → Press <strong>same LABEL</strong> as Stage 1</li>
+              <li>• Display <strong>3</strong> → Press <strong>same POSITION</strong> as Stage 2</li>
+              <li>• Display <strong>4</strong> → Press <strong>Position 3</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Digital Scratchpad for Decoders -->
+        <div class="bg-slate-950/90 border border-emerald-500/30 rounded-lg p-3 space-y-2">
+          <div class="font-mono-tech text-[11px] text-emerald-400 font-bold">📝 QUICK SCRATCHPAD (TAP TO RECORD):</div>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div>
+              <label class="text-[10px] text-slate-400 font-mono-tech">STAGE 1 (POS / LABEL)</label>
+              <input type="text" placeholder="e.g. Pos 2 / #4" class="w-full mt-1 px-2.5 py-1.5 rounded bg-slate-900 border border-slate-700 text-white font-mono-tech text-xs" />
+            </div>
+            <div>
+              <label class="text-[10px] text-slate-400 font-mono-tech">STAGE 2 (POS / LABEL)</label>
+              <input type="text" placeholder="e.g. Pos 1 / #3" class="w-full mt-1 px-2.5 py-1.5 rounded bg-slate-900 border border-slate-700 text-white font-mono-tech text-xs" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 4: MARSHAL SCORE VERIFICATION ==================== -->
+    <section id="view-result" class="hidden pt-4 space-y-4">
+      <div class="p-6 rounded-2xl bg-slate-900 border-2 border-emerald-500/60 text-center space-y-4">
+        <div id="res-badge" class="inline-block font-mono-tech text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300">
+          MISSION COMPLETE
+        </div>
+        <h1 id="res-station" class="text-xl font-bold text-white">CP 9: LOGIC GATEWAY</h1>
+        <div class="py-3 bg-slate-950 rounded-xl border border-slate-800">
+          <div class="text-xs font-mono-tech text-slate-400">FINAL SCORE</div>
+          <div id="res-score" class="text-5xl font-extrabold font-mono-tech text-emerald-400 mt-1">100</div>
+          <div class="text-xs font-mono-tech text-slate-500 mt-0.5">OUT OF 100 PTS</div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 text-left font-mono-tech text-xs bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+          <div>
+            <span class="text-slate-500 block">TEAM NAME</span>
+            <span id="res-team" class="text-white font-bold">-</span>
+          </div>
+          <div>
+            <span class="text-slate-500 block">TIME LEFT</span>
+            <span id="res-time" class="text-cyan-400 font-bold">-</span>
+          </div>
+          <div>
+            <span class="text-slate-500 block">ERRORS / STRIKES</span>
+            <span id="res-errors" class="text-rose-400 font-bold">0</span>
+          </div>
+          <div>
+            <span class="text-slate-500 block">VERIFY CODE</span>
+            <span id="res-code" class="text-amber-300 font-bold">-</span>
+          </div>
+        </div>
+
+        <div id="res-clue" class="p-3.5 rounded-xl bg-cyan-950/50 border border-cyan-500/40 text-xs text-cyan-200 font-mono-tech">
+          <!-- Next clue injected here -->
+        </div>
+
+        <p class="text-[11px] text-slate-400">
+          Show this screen to the Checkpoint Marshal to log your score before moving on!
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    /* =====================================================================
+       GLOBAL ROUTING & UTILITIES
+    ===================================================================== */
+    let activeTimer = null;
+
+    function showSection(id) {
+      ['view-hub', 'view-cp9', 'view-cp10-hacker', 'view-cp10-manual', 'view-result'].forEach(v => {
+        document.getElementById(v).classList.add('hidden');
+      });
+      document.getElementById(id).classList.remove('hidden');
+      document.getElementById('home-btn').classList.toggle('hidden', id === 'view-hub');
+      window.scrollTo(0, 0);
+    }
+
+    function openMode(mode) {
+      clearInterval(activeTimer);
+      if (mode === 'cp9') {
+        document.getElementById('header-title').textContent = 'CP 9 // LOGIC GATEWAY';
+        document.getElementById('cp9-start').classList.remove('hidden');
+        document.getElementById('cp9-play').classList.add('hidden');
+        showSection('view-cp9');
+      } else if (mode === 'cp10-hacker') {
+        document.getElementById('header-title').textContent = 'CP 10 // MAINFRAME TERMINAL';
+        document.getElementById('cp10-start').classList.remove('hidden');
+        document.getElementById('cp10-play').classList.add('hidden');
+        showSection('view-cp10-hacker');
+      } else if (mode === 'cp10-manual') {
+        document.getElementById('header-title').textContent = 'CP 10 // DECRYPTION MANUAL';
+        showSection('view-cp10-manual');
+      } else {
+        goHome();
+      }
+    }
+
+    function goHome() {
+      clearInterval(activeTimer);
+      document.getElementById('header-title').textContent = 'X-HUNT // MISSION HUB';
+      showSection('view-hub');
+    }
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function flashError() {
+      document.body.classList.remove('flash-red');
+      void document.body.offsetWidth;
+      document.body.classList.add('flash-red');
+    }
+
+    function generateVerifyCode(prefix, score) {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      let r = '';
+      for (let i = 0; i < 3; i++) r += chars[Math.floor(Math.random() * chars.length)];
+      return `${prefix}-${score}-${r}`;
+    }
+
+    function showFinalResult({ station, badge, team, score, timeLeft, errors, code, clue }) {
+      clearInterval(activeTimer);
+      document.getElementById('res-badge').textContent = badge;
+      document.getElementById('res-station').textContent = station;
+      document.getElementById('res-score').textContent = score;
+      document.getElementById('res-team').textContent = team;
+      document.getElementById('res-time').textContent = formatTime(timeLeft);
+      document.getElementById('res-errors').textContent = errors;
+      document.getElementById('res-code').textContent = code;
+      document.getElementById('res-clue').innerHTML = clue;
+      showSection('view-result');
+    }
+
+    /* =====================================================================
+       CP 9: LOGIC GATEWAY (3-LOCK BYPASS)
+    ===================================================================== */
+    const cp9 = {
+      team: '',
+      timeLeft: 480, // 8 minutes
+      lock: 1,
+      errors: 0,
+      cleared: 0
+    };
+
+    function startCP9() {
+      const name = document.getElementById('cp9-team-input').value.trim();
+      if (!name) {
+        alert('Please enter your Team Name first!');
+        return;
+      }
+      cp9.team = name;
+      cp9.timeLeft = 480;
+      cp9.lock = 1;
+      cp9.errors = 0;
+      cp9.cleared = 0;
+
+      document.getElementById('cp9-l1-input').value = '';
+      document.getElementById('cp9-l3-input').value = '';
+      document.getElementById('cp9-errors').textContent = '0';
+      document.getElementById('cp9-progress').textContent = '1 / 3';
+      document.getElementById('cp9-timer').textContent = formatTime(cp9.timeLeft);
+      document.getElementById('cp9-msg').classList.add('hidden');
+
+      document.getElementById('cp9-lock-1').classList.remove('hidden');
+      document.getElementById('cp9-lock-2').classList.add('hidden');
+      document.getElementById('cp9-lock-3').classList.add('hidden');
+
+      document.getElementById('cp9-start').classList.add('hidden');
+      document.getElementById('cp9-play').classList.remove('hidden');
+
+      clearInterval(activeTimer);
+      activeTimer = setInterval(() => {
+        cp9.timeLeft--;
+        document.getElementById('cp9-timer').textContent = formatTime(cp9.timeLeft);
+        if (cp9.timeLeft <= 60) {
+          document.getElementById('cp9-timer').classList.replace('text-cyan-400', 'text-rose-400');
+        }
+        if (cp9.timeLeft <= 0) {
+          finishCP9(false);
+        }
+      }, 1000);
+    }
+
+    function cp9Feedback(text, isError) {
+      const el = document.getElementById('cp9-msg');
+      el.textContent = text;
+      el.className = `text-center font-mono-tech text-xs py-2 px-3 rounded-lg ${
+        isError ? 'bg-rose-950/80 text-rose-300 border border-rose-500/50' : 'bg-emerald-950/80 text-emerald-300 border border-emerald-500/50'
+      }`;
+      if (isError) {
+        cp9.errors++;
+        document.getElementById('cp9-errors').textContent = cp9.errors;
+        flashError();
+      }
+    }
+
+    function checkCP9Lock1() {
+      const val = document.getElementById('cp9-l1-input').value.trim();
+      if (val === '042') {
+        cp9.cleared = 1;
+        cp9.lock = 2;
+        cp9Feedback('LOCK 1 BREACHED! (+30 PTS)', false);
+        document.getElementById('cp9-lock-1').classList.add('hidden');
+        document.getElementById('cp9-lock-2').classList.remove('hidden');
+        document.getElementById('cp9-progress').textContent = '2 / 3';
+      } else {
+        cp9Feedback('INVALID PIN! (-3 PTS) Check the logs again.', true);
+      }
+    }
+
+    function checkCP9Lock2(door) {
+      if (door === 'BLUE') {
+        cp9.cleared = 2;
+        cp9.lock = 3;
+        cp9Feedback('LOCK 2 BREACHED! (+30 PTS)', false);
+        document.getElementById('cp9-lock-2').classList.add('hidden');
+        document.getElementById('cp9-lock-3').classList.remove('hidden');
+        document.getElementById('cp9-progress').textContent = '3 / 3';
+      } else {
+        cp9Feedback('SECURITY TRAP! (-3 PTS) Remember: ONLY ONE bot tells the truth.', true);
+      }
+    }
+
+    function checkCP9Lock3() {
+      const val = document.getElementById('cp9-l3-input').value.trim();
+      if (val === '20') {
+        cp9.cleared = 3;
+        finishCP9(true);
+      } else {
+        cp9Feedback('WRONG VALUE! (-3 PTS) Remember order of operations (× before +)!', true);
+      }
+    }
+
+    function finishCP9(completed) {
+      let score = cp9.cleared * 30;
+      const speedBonus = (completed && cp9.timeLeft >= 180) ? 10 : 0; // Under 5 mins used
+      score = Math.max(0, score + speedBonus - (cp9.errors * 3));
+      showFinalResult({
+        station: 'CP 9: LOGIC GATEWAY',
+        badge: completed ? (speedBonus ? 'GATEWAY BREACHED + SPEED BONUS!' : 'GATEWAY BREACHED!') : "TIME'S UP",
+        team: cp9.team,
+        score,
+        timeLeft: cp9.timeLeft,
+        errors: cp9.errors,
+        code: generateVerifyCode('CP9', score),
+        clue: '🔓 FIREWALL DISABLED!<br><strong>NEXT OBJECTIVE:</strong> Proceed to <strong>CP 10: THE MAINFRAME</strong>.'
+      });
+    }
+
+    /* =====================================================================
+       CP 10: THE MAINFRAME ("KEEP TALKING" LITE — 5 RANDOMIZED MODULES)
+    ===================================================================== */
+    const WIRE_COLORS = [
+      { name: 'RED', bg: 'bg-rose-600', border: 'border-rose-400', text: 'text-white' },
+      { name: 'BLUE', bg: 'bg-blue-600', border: 'border-blue-400', text: 'text-white' },
+      { name: 'YELLOW', bg: 'bg-amber-400', border: 'border-amber-200', text: 'text-slate-950' },
+      { name: 'WHITE', bg: 'bg-slate-100', border: 'border-white', text: 'text-slate-900' },
+      { name: 'BLACK', bg: 'bg-slate-800', border: 'border-slate-500', text: 'text-slate-200' }
+    ];
+
+    const SYMBOL_COLUMNS = [
+      ['⚡', '👁️', '⚓', '☣️', '🌙', '🔑'],
+      ['🔥', '⚡', '💀', '💎', '🌙', '🧲'],
+      ['🚀', '👁️', '💎', '⏳', '🔑', '🎯']
+    ];
+
+    const GLITCH_BANK = {
+      "THEIR": ["THERE", "THEY'RE", "THEIR", "WHERE", "WERE", "WEAR"],
+      "WAIT": ["WEIGHT", "WAIT", "WHAT", "WATT", "WHITE", "WRITE"],
+      "RIGHT": ["WRITE", "RITE", "RIGHT", "LIGHT", "NIGHT", "BRIGHT"],
+      "YOU'RE": ["YOUR", "YOU'RE", "YOU ARE", "UR", "YORE", "OUR"],
+      "SEE": ["SEA", "C", "SEE", "SAW", "SAY", "SIGH"],
+      "NO": ["KNOW", "NOW", "NO", "NONE", "NEW", "KNEW"]
+    };
+
+    const cp10 = {
+      team: '',
+      timeLeft: 720, // 12 minutes
+      strikes: 0,
+      activeIdx: 0,
+      solved: [false, false, false, false, false],
+      data: {}
+    };
+
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function generateCP10Data() {
+      // --- Module 1: Server Wires ---
+      const serialNum = Math.floor(100 + Math.random() * 900); // 100-999
+      const serial = `SYS-${serialNum}`;
+      const wires = Array.from({ length: 5 }, () => WIRE_COLORS[Math.floor(Math.random() * WIRE_COLORS.length)].name);
+      const redCount = wires.filter(w => w === 'RED').length;
+      const blueCount = wires.filter(w => w === 'BLUE').length;
+      const yellowCount = wires.filter(w => w === 'YELLOW').length;
+      const isOdd = (serialNum % 2) === 1;
+
+      let wireAnswer = 2; // 0-indexed (3rd wire)
+      if (redCount === 0) wireAnswer = 1; // 2nd wire
+      else if (wires[4] === 'WHITE') wireAnswer = 3; // 4th wire
+      else if (blueCount > 1 && isOdd) wireAnswer = wires.lastIndexOf('BLUE');
+      else if (yellowCount === 1) wireAnswer = 0; // 1st wire
+
+      // --- Module 2: Override Button ---
+      const btnColors = ['RED', 'BLUE', 'YELLOW', 'GREEN'];
+      const btnWords = ['ABORT', 'DETONATE', 'HOLD', 'PRESS'];
+      const bColor = btnColors[Math.floor(Math.random() * btnColors.length)];
+      const bWord = btnWords[Math.floor(Math.random() * btnWords.length)];
+      let btnAction = 'TAP';
+      if (bColor === 'RED' && bWord === 'HOLD') btnAction = 'TAP';
+      else if (bWord === 'DETONATE') btnAction = 'DOUBLE';
+      else if (bColor === 'BLUE' || bColor === 'YELLOW') btnAction = 'HOLD';
+      else btnAction = 'TAP';
+
+      // --- Module 3: Symbol Keypad ---
+      const col = SYMBOL_COLUMNS[Math.floor(Math.random() * SYMBOL_COLUMNS.length)];
+      const pickedIndices = shuffle([0, 1, 2, 3, 4, 5]).slice(0, 4).sort((a, b) => a - b);
+      const correctSeq = pickedIndices.map(i => col[i]);
+      const gridSymbols = shuffle(correctSeq);
+
+      // --- Module 4: Glitch Words (2 Rounds) ---
+      const prompts = shuffle(Object.keys(GLITCH_BANK)).slice(0, 2);
+      const glitchRounds = prompts.map(p => {
+        const list = GLITCH_BANK[p];
+        const chosenIndices = shuffle([0, 1, 2, 3, 4, 5]).slice(0, 4).sort((a, b) => a - b);
+        const answer = list[chosenIndices[0]];
+        const options = shuffle(chosenIndices.map(i => list[i]));
+        return { prompt: p, options, answer };
+      });
+
+      // --- Module 5: Core Memory (3 Stages) ---
+      const memStages = [0, 1, 2].map(() => ({
+        display: Math.floor(1 + Math.random() * 4),
+        buttons: shuffle([1, 2, 3, 4])
+      }));
+
+      cp10.data = {
+        m1: { serial, wires, answer: wireAnswer, cut: [false, false, false, false, false] },
+        m2: { color: bColor, word: bWord, answer: btnAction },
+        m3: { grid: gridSymbols, seq: correctSeq, step: 0, pressed: [] },
+        m4: { rounds: glitchRounds, round: 0 },
+        m5: { stages: memStages, stage: 0, history: [] }
+      };
+    }
+
+    function startCP10() {
+      const name = document.getElementById('cp10-team-input').value.trim();
+      if (!name) {
+        alert('Please enter your Team Name first!');
+        return;
+      }
+      cp10.team = name;
+      cp10.timeLeft = 720;
+      cp10.strikes = 0;
+      cp10.activeIdx = 0;
+      cp10.solved = [false, false, false, false, false];
+      generateCP10Data();
+
+      document.getElementById('cp10-timer').textContent = formatTime(cp10.timeLeft);
+      document.getElementById('cp10-timer').className = 'text-lg font-bold text-amber-400';
+      document.getElementById('cp10-strikes').textContent = '0';
+      document.getElementById('cp10-cleared').textContent = '0 / 5';
+      document.getElementById('cp10-msg').classList.add('hidden');
+
+      document.getElementById('cp10-start').classList.add('hidden');
+      document.getElementById('cp10-play').classList.remove('hidden');
+
+      renderCP10Tabs();
+      renderCP10Module();
+
+      clearInterval(activeTimer);
+      activeTimer = setInterval(() => {
+        cp10.timeLeft--;
+        document.getElementById('cp10-timer').textContent = formatTime(cp10.timeLeft);
+        if (cp10.timeLeft <= 90) {
+          document.getElementById('cp10-timer').classList.replace('text-amber-400', 'text-rose-400');
+        }
+        if (cp10.timeLeft <= 0) {
+          finishCP10(false);
+        }
+      }, 1000);
+    }
+
+    function cp10Msg(text, isError) {
+      const el = document.getElementById('cp10-msg');
+      el.textContent = text;
+      el.className = `text-center font-mono-tech text-xs py-2 px-3 rounded-lg ${
+        isError ? 'bg-rose-950/80 text-rose-300 border border-rose-500/50' : 'bg-emerald-950/80 text-emerald-300 border border-emerald-500/50'
+      }`;
+    }
+
+    function addStrike(reason) {
+      cp10.strikes++;
+      document.getElementById('cp10-strikes').textContent = cp10.strikes;
+      flashError();
+      cp10Msg(`⚠️ STRIKE! (-5 PTS) ${reason}`, true);
+    }
+
+    function solveModule(idx) {
+      cp10.solved[idx] = true;
+      const count = cp10.solved.filter(Boolean).length;
+      document.getElementById('cp10-cleared').textContent = `${count} / 5`;
+      cp10Msg(`✅ MODULE ${idx + 1} STABILIZED! (+20 PTS)`, false);
+      renderCP10Tabs();
+
+      if (count === 5) {
+        setTimeout(() => finishCP10(true), 600);
+      } else {
+        // Auto-jump to next unsolved module after brief pause
+        const next = cp10.solved.findIndex(s => !s);
+        if (next !== -1) {
+          setTimeout(() => {
+            cp10.activeIdx = next;
+            renderCP10Tabs();
+            renderCP10Module();
+          }, 700);
+        }
+      }
+    }
+
+    function renderCP10Tabs() {
+      const labels = ['M1', 'M2', 'M3', 'M4', 'M5'];
+      const container = document.getElementById('cp10-tabs');
+      container.innerHTML = labels.map((lbl, i) => {
+        const isSolved = cp10.solved[i];
+        const isActive = cp10.activeIdx === i;
+        let cls = 'py-2 rounded-lg font-bold border transition ';
+        if (isSolved) cls += 'bg-emerald-500/20 border-emerald-500 text-emerald-300';
+        else if (isActive) cls += 'bg-amber-500 text-slate-950 border-amber-400';
+        else cls += 'bg-slate-900 border-slate-700 text-slate-400 hover:border-slate-500';
+        return `<button onclick="switchCP10Module(${i})" class="${cls}">${isSolved ? '✓ ' : ''}${lbl}</button>`;
+      }).join('');
+    }
+
+    function switchCP10Module(i) {
+      cp10.activeIdx = i;
+      document.getElementById('cp10-msg').classList.add('hidden');
+      renderCP10Tabs();
+      renderCP10Module();
+    }
+
+    function renderCP10Module() {
+      const box = document.getElementById('cp10-module-box');
+      const idx = cp10.activeIdx;
+
+      if (cp10.solved[idx]) {
+        box.innerHTML = `
+          <div class="h-64 flex flex-col items-center justify-center text-center space-y-2">
+            <div class="text-4xl">✅</div>
+            <div class="font-mono-tech font-bold text-emerald-400">MODULE ${idx + 1} ONLINE</div>
+            <p class="text-xs text-slate-400">Select another module tab above to continue.</p>
+          </div>`;
+        return;
+      }
+
+      // ---- MODULE 1: SERVER WIRES ----
+      if (idx === 0) {
+        const m1 = cp10.data.m1;
+        box.innerHTML = `
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="font-mono-tech text-xs text-amber-400 font-bold">M1 // SERVER WIRES</span>
+              <span class="font-mono-tech text-xs px-2.5 py-1 rounded bg-slate-950 border border-cyan-500/40 text-cyan-300">SERIAL: <strong>${m1.serial}</strong></span>
+            </div>
+            <p class="text-xs text-slate-400">Tap the exact wire your Decoders tell you to cut:</p>
+            <div class="space-y-3 pt-1">
+              ${m1.wires.map((colorName, i) => {
+                const c = WIRE_COLORS.find(x => x.name === colorName);
+                const isCut = m1.cut[i];
+                return `
+                  <button onclick="cutWire(${i})" ${isCut ? 'disabled' : ''}
+                    class="w-full wire-btn ${c.bg} ${c.border} border-2 ${c.text} font-mono-tech text-xs font-bold flex items-center justify-between px-4 ${isCut ? 'wire-cut' : ''}">
+                    <span>WIRE #${i + 1}</span>
+                    <span>${isCut ? '✂️ CUT' : colorName}</span>
+                  </button>`;
+              }).join('')}
+            </div>
+          </div>`;
+      }
+
+      // ---- MODULE 2: OVERRIDE BUTTON ----
+      else if (idx === 1) {
+        const m2 = cp10.data.m2;
+        const colorMap = {
+          RED: 'bg-rose-600 border-rose-300 text-white',
+          BLUE: 'bg-blue-600 border-blue-300 text-white',
+          YELLOW: 'bg-amber-400 border-amber-200 text-slate-950',
+          GREEN: 'bg-emerald-600 border-emerald-300 text-white'
+        };
+        box.innerHTML = `
+          <div class="space-y-4 text-center">
+            <div class="flex items-center justify-between text-left">
+              <span class="font-mono-tech text-xs text-amber-400 font-bold">M2 // OVERRIDE BUTTON</span>
+              <span class="font-mono-tech text-xs text-slate-400">TAP / 2x TAP / HOLD 3s</span>
+            </div>
+            <p class="text-xs text-slate-400">Tell your Decoders the button <strong>COLOR</strong> and <strong>WORD</strong>.</p>
+            <div class="py-6 flex flex-col items-center justify-center gap-4">
+              <button id="override-btn"
+                class="w-44 h-44 rounded-full border-4 ${colorMap[m2.color]} font-mono-tech text-2xl font-extrabold shadow-2xl active:scale-95 transition flex items-center justify-center touch-none">
+                ${m2.word}
+              </button>
+              <div class="w-48 h-2.5 bg-slate-950 rounded-full overflow-hidden border border-slate-700">
+                <div id="hold-bar" class="h-full bg-cyan-400 w-0 transition-none"></div>
+              </div>
+              <div id="hold-label" class="font-mono-tech text-[11px] text-slate-400">READY FOR INPUT</div>
+            </div>
+          </div>`;
+        attachOverrideButtonHandlers();
+      }
+
+      // ---- MODULE 3: SYMBOL KEYPAD ----
+      else if (idx === 2) {
+        const m3 = cp10.data.m3;
+        box.innerHTML = `
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="font-mono-tech text-xs text-amber-400 font-bold">M3 // SYMBOL KEYPAD</span>
+              <span class="font-mono-tech text-xs text-cyan-300">STEP ${m3.step} / 4</span>
+            </div>
+            <p class="text-xs text-slate-400">Describe all 4 symbols. Tap them in exact order from top to bottom:</p>
+            <div class="grid grid-cols-2 gap-3 pt-2">
+              ${m3.grid.map((sym, i) => {
+                const done = m3.pressed.includes(sym);
+                return `
+                  <button onclick="pressSymbol('${sym}')" ${done ? 'disabled' : ''}
+                    class="h-28 rounded-2xl text-5xl flex items-center justify-center border-2 transition ${
+                      done ? 'bg-emerald-950/60 border-emerald-500 opacity-60' : 'bg-slate-950 border-slate-700 hover:border-amber-400 active:scale-95'
+                    }">
+                    ${sym}
+                  </button>`;
+              }).join('')}
+            </div>
+          </div>`;
+      }
+
+      // ---- MODULE 4: GLITCH WORDS ----
+      else if (idx === 3) {
+        const m4 = cp10.data.m4;
+        const curr = m4.rounds[m4.round];
+        box.innerHTML = `
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="font-mono-tech text-xs text-amber-400 font-bold">M4 // GLITCH WORDS</span>
+              <span class="font-mono-tech text-xs text-cyan-300">ROUND ${m4.round + 1} / 2</span>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-950 border border-cyan-500/40 text-center">
+              <div class="text-[10px] font-mono-tech text-slate-400">TOP PROMPT WORD</div>
+              <div class="text-3xl font-extrabold font-mono-tech text-cyan-300 tracking-widest mt-1">${curr.prompt}</div>
+            </div>
+            <p class="text-xs text-slate-400 text-center">Tap the FIRST word from the Manual's list that appears below:</p>
+            <div class="grid grid-cols-2 gap-2.5">
+              ${curr.options.map(w => `
+                <button onclick="pressGlitchWord('${w.replace(/'/g, "\\'")}')"
+                  class="py-4 px-2 rounded-xl bg-slate-950 border-2 border-slate-700 hover:border-amber-400 active:scale-95 font-mono-tech font-bold text-base text-white">
+                  ${w}
+                </button>`).join('')}
+            </div>
+          </div>`;
+      }
+
+      // ---- MODULE 5: CORE MEMORY ----
+      else if (idx === 4) {
+        const m5 = cp10.data.m5;
+        const curr = m5.stages[m5.stage];
+        box.innerHTML = `
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="font-mono-tech text-xs text-amber-400 font-bold">M5 // CORE MEMORY</span>
+              <span class="font-mono-tech text-xs text-cyan-300">STAGE ${m5.stage + 1} / 3</span>
+            </div>
+            <div class="p-5 rounded-xl bg-slate-950 border border-amber-500/40 text-center">
+              <div class="text-[10px] font-mono-tech text-slate-400">DISPLAY NUMBER</div>
+              <div class="text-5xl font-extrabold font-mono-tech text-amber-300 mt-1">${curr.display}</div>
+            </div>
+            <p class="text-xs text-slate-400 text-center">Positions 1 → 4 are left to right. Tell your Decoders the Position AND Label!</p>
+            <div class="grid grid-cols-4 gap-2 pt-1">
+              ${curr.buttons.map((label, posIdx) => `
+                <button onclick="pressMemory(${posIdx + 1}, ${label})"
+                  class="py-5 rounded-xl bg-slate-950 border-2 border-slate-700 hover:border-cyan-400 active:scale-95 flex flex-col items-center">
+                  <span class="text-[10px] font-mono-tech text-slate-500">POS ${posIdx + 1}</span>
+                  <span class="text-2xl font-extrabold font-mono-tech text-white mt-0.5">${label}</span>
+                </button>`).join('')}
+            </div>
+          </div>`;
+      }
+    }
+
+    // --- Module 1 Handler ---
+    function cutWire(i) {
+      const m1 = cp10.data.m1;
+      if (i === m1.answer) {
+        m1.cut[i] = true;
+        renderCP10Module();
+        solveModule(0);
+      } else {
+        m1.cut[i] = true;
+        addStrike(`Wire #${i + 1} was wrong!`);
+        renderCP10Module();
+      }
+    }
+
+    // --- Module 2 Handler (Unified Pointer Events for Tap / Double-Tap / Hold 3s) ---
+    function attachOverrideButtonHandlers() {
+      const btn = document.getElementById('override-btn');
+      const bar = document.getElementById('hold-bar');
+      const lbl = document.getElementById('hold-label');
+      if (!btn) return;
+
+      let holdInterval = null;
+      let tapTimer = null;
+      let pressStart = 0;
+      let isHolding = false;
+      let holdTriggered = false;
+
+      const evaluateOverride = (action) => {
+        if (action === cp10.data.m2.answer) {
+          solveModule(1);
+        } else {
+          const names = { TAP: 'Tap Once', DOUBLE: 'Double-Tap', HOLD: 'Hold 3s' };
+          addStrike(`"${names[action]}" was wrong! Re-check the button rule.`);
+        }
+      };
+
+      btn.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        isHolding = true;
+        holdTriggered = false;
+        pressStart = Date.now();
+        lbl.textContent = 'HOLDING...';
+
+        clearInterval(holdInterval);
+        holdInterval = setInterval(() => {
+          if (!isHolding) return;
+          const elapsed = Date.now() - pressStart;
+          const pct = Math.min(100, (elapsed / 3000) * 100);
+          bar.style.width = `${pct}%`;
+          if (elapsed >= 3000 && !holdTriggered) {
+            holdTriggered = true;
+            isHolding = false;
+            clearInterval(holdInterval);
+            clearTimeout(tapTimer);
+            tapTimer = null;
+            lbl.textContent = 'HOLD COMPLETE!';
+            evaluateOverride('HOLD');
+          }
+        }, 30);
+      });
+
+      const endPress = () => {
+        if (!isHolding) return;
+        isHolding = false;
+        clearInterval(holdInterval);
+        bar.style.width = '0%';
+
+        if (holdTriggered) return;
+
+        const elapsed = Date.now() - pressStart;
+        if (elapsed > 600) {
+          // Released too early during a hold attempt
+          lbl.textContent = 'RELEASED TOO EARLY (NEED 3s)';
+          return;
+        }
+
+        if (tapTimer) {
+          clearTimeout(tapTimer);
+          tapTimer = null;
+          lbl.textContent = 'DOUBLE-TAP DETECTED';
+          evaluateOverride('DOUBLE');
+        } else {
+          lbl.textContent = 'TAP DETECTED...';
+          tapTimer = setTimeout(() => {
+            tapTimer = null;
+            evaluateOverride('TAP');
+          }, 420);
+        }
+      };
+
+      btn.addEventListener('pointerup', endPress);
+      btn.addEventListener('pointercancel', () => {
+        isHolding = false;
+        clearInterval(holdInterval);
+        bar.style.width = '0%';
+      });
+    }
+
+    // --- Module 3 Handler ---
+    function pressSymbol(sym) {
+      const m3 = cp10.data.m3;
+      if (sym === m3.seq[m3.step]) {
+        m3.pressed.push(sym);
+        m3.step++;
+        if (m3.step === 4) {
+          solveModule(2);
+        } else {
+          renderCP10Module();
+        }
+      } else {
+        addStrike('Wrong symbol order! Check top-to-bottom in the column.');
+      }
+    }
+
+    // --- Module 4 Handler ---
+    function pressGlitchWord(word) {
+      const m4 = cp10.data.m4;
+      const curr = m4.rounds[m4.round];
+      if (word === curr.answer) {
+        m4.round++;
+        if (m4.round >= 2) {
+          solveModule(3);
+        } else {
+          cp10Msg('ROUND 1 CLEAR! Ready for Round 2...', false);
+          renderCP10Module();
+        }
+      } else {
+        addStrike(`"${word}" is not the first matching word in the list!`);
+      }
+    }
+
+    // --- Module 5 Handler ---
+    function pressMemory(pos, label) {
+      const m5 = cp10.data.m5;
+      const curr = m5.stages[m5.stage];
+      const d = curr.display;
+      let isCorrect = false;
+
+      if (m5.stage === 0) {
+        if (d === 1 && pos === 2) isCorrect = true;
+        if (d === 2 && pos === 4) isCorrect = true;
+        if (d === 3 && pos === 1) isCorrect = true;
+        if (d === 4 && pos === 3) isCorrect = true;
+      } else if (m5.stage === 1) {
+        const s1 = m5.history[0];
+        if (d === 1 && label === 4) isCorrect = true;
+        if (d === 2 && pos === s1.pos) isCorrect = true;
+        if (d === 3 && pos === 1) isCorrect = true;
+        if (d === 4 && label === s1.label) isCorrect = true;
+      } else if (m5.stage === 2) {
+        const s1 = m5.history[0];
+        const s2 = m5.history[1];
+        if (d === 1 && label === s2.label) isCorrect = true;
+        if (d === 2 && label === s1.label) isCorrect = true;
+        if (d === 3 && pos === s2.pos) isCorrect = true;
+        if (d === 4 && pos === 3) isCorrect = true;
+      }
+
+      if (isCorrect) {
+        m5.history.push({ pos, label });
+        m5.stage++;
+        if (m5.stage >= 3) {
+          solveModule(4);
+        } else {
+          cp10Msg(`STAGE ${m5.stage} CLEAR! Remember Pos ${pos} / Label #${label}.`, false);
+          renderCP10Module();
+        }
+      } else {
+        addStrike('Wrong memory button! Check Stage rule & previous notes.');
+      }
+    }
+
+    function finishCP10(completed) {
+      const clearedCount = cp10.solved.filter(Boolean).length;
+      const score = Math.max(0, (clearedCount * 20) - (cp10.strikes * 5));
+      showFinalResult({
+        station: 'CP 10: THE MAINFRAME',
+        badge: completed ? 'MAINFRAME HACKED!' : "TIME'S UP — LOCKED OUT",
+        team: cp10.team,
+        score,
+        timeLeft: cp10.timeLeft,
+        errors: cp10.strikes,
+        code: generateVerifyCode('CP10', score),
+        clue: '🏆 DATA EXTRACTED!<br><strong>FINAL DESTINATION:</strong> Proceed to <strong>STADIUM MINI</strong> for the Finale: <strong>Tag-Rumble Survival</strong>!'
+      });
+    }
+
+    /* =====================================================================
+       INIT: READ URL PARAM FOR DIRECT QR CODE ACCESS
+    ===================================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const mode = params.get('mode');
+      if (mode === 'cp9' || mode === 'cp10-hacker' || mode === 'cp10-manual') {
+        openMode(mode);
+      } else {
+        goHome();
+      }
+    });
+  </script>
+</body>
+</html>
