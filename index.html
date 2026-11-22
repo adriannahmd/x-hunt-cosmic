@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+html_code = r"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -20,7 +20,6 @@
       font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Subtle cyber grid background */
     .cyber-bg {
       background-image: 
         linear-gradient(to right, rgba(30, 41, 59, 0.35) 1px, transparent 1px),
@@ -48,7 +47,7 @@
 
     .wire-btn {
       position: relative;
-      height: 36px;
+      height: 40px;
       border-radius: 9999px;
       transition: transform 0.15s ease, opacity 0.2s ease;
     }
@@ -66,6 +65,18 @@
         rgba(0,0,0,0.6) 8px,
         rgba(0,0,0,0.6) 16px
       );
+    }
+
+    /* CP 9 Cyber Breach Pads */
+    .simon-pad {
+      opacity: 0.55;
+      transition: opacity 0.12s ease, transform 0.1s ease, box-shadow 0.12s ease;
+    }
+    .simon-pad.lit {
+      opacity: 1;
+      transform: scale(1.03);
+      box-shadow: 0 0 26px currentColor;
+      border-color: #ffffff;
     }
   </style>
 </head>
@@ -97,11 +108,11 @@
         <!-- CP 9 Card -->
         <button onclick="openMode('cp9')" class="w-full text-left p-4 rounded-xl bg-slate-900/90 border border-cyan-500/40 hover:border-cyan-400 transition group">
           <div class="flex items-center justify-between mb-1">
-            <span class="font-mono-tech text-xs font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300">CP 9 • 5–8 MINS</span>
+            <span class="font-mono-tech text-xs font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300">CP 9 • 3–5 MINS</span>
             <span class="text-cyan-400 group-hover:translate-x-1 transition">→</span>
           </div>
-          <h2 class="text-lg font-bold text-white">Logic Gateway</h2>
-          <p class="text-xs text-slate-400 mt-0.5">3-Lock Security Bypass: Code Crack, Glitching AI, and Cyber Equation.</p>
+          <h2 class="text-lg font-bold text-white">Cyber Breach</h2>
+          <p class="text-xs text-slate-400 mt-0.5">3-Layer Arcade Reflex &amp; Memory Bypass: Signal Memory, Glitch Scanner, and Firewall Lock-On.</p>
         </button>
 
         <!-- CP 10 Hacker Card -->
@@ -121,14 +132,14 @@
             <span class="text-emerald-400 group-hover:translate-x-1 transition">→</span>
           </div>
           <h2 class="text-lg font-bold text-white">The Mainframe — Decryption Manual</h2>
-          <p class="text-xs text-slate-400 mt-0.5">Reference rules & digital scratchpad for teammates shouting instructions.</p>
+          <p class="text-xs text-slate-400 mt-0.5">Reference rules &amp; digital scratchpad for teammates shouting instructions.</p>
         </button>
       </div>
 
       <!-- Marshal QR Helper -->
       <div class="mt-6 p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-400 space-y-2">
-        <p class="font-mono-tech text-slate-300 font-bold">📌 MARSHAL QR CODE TIP:</p>
-        <p>Once hosted online, append these tags to your URL to create direct QR codes for each role:</p>
+        <p class="font-mono-tech text-slate-300 font-bold">📌 MARSHAL QR CODE LINKS:</p>
+        <p>Append these parameters to your live GitHub Pages URL for direct QR scanning:</p>
         <div class="font-mono-tech text-[11px] bg-slate-950 p-2.5 rounded border border-slate-800 space-y-1 text-cyan-300 overflow-x-auto">
           <div>CP 9: <span class="text-slate-300">?mode=cp9</span></div>
           <div>CP 10 Hacker: <span class="text-slate-300">?mode=cp10-hacker</span></div>
@@ -137,21 +148,21 @@
       </div>
     </section>
 
-    <!-- ==================== VIEW 1: CP 9 LOGIC GATEWAY ==================== -->
+    <!-- ==================== VIEW 1: CP 9 CYBER BREACH ==================== -->
     <section id="view-cp9" class="hidden space-y-4">
       <!-- Start Screen -->
       <div id="cp9-start" class="space-y-5 pt-4">
         <div class="p-5 rounded-2xl bg-slate-900 border border-cyan-500/40 space-y-4">
-          <div class="inline-block font-mono-tech text-xs px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-300">CHECKPOINT 9</div>
-          <h1 class="text-2xl font-bold text-white">LOGIC GATEWAY</h1>
+          <div class="inline-block font-mono-tech text-xs px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-300">CHECKPOINT 9 • ARCADE BREACH</div>
+          <h1 class="text-2xl font-bold text-white">CYBER BREACH</h1>
           <p class="text-sm text-slate-300 leading-relaxed">
-            Bypass <strong>3 security locks</strong> to breach the firewall.
+            Clear <strong>3 fast-paced reflex &amp; memory layers</strong> before the timer runs out. Zero math or riddles!
           </p>
           <ul class="text-xs text-slate-400 space-y-1.5 font-mono-tech bg-slate-950 p-3 rounded-lg border border-slate-800">
-            <li>• Time Limit: 8 Minutes</li>
-            <li>• +30 pts per lock cleared (Max 90)</li>
-            <li>• +10 pts Speed Bonus (finish under 5 mins)</li>
-            <li>• -3 pts per wrong attempt</li>
+            <li>• Time Limit: 5 Minutes</li>
+            <li>• +30 pts per layer cleared (Max 90)</li>
+            <li>• +10 pts Speed Bonus (finish with 2:00+ left)</li>
+            <li>• -3 pts per mistake</li>
           </ul>
           <div class="space-y-2 pt-1">
             <label class="block text-xs font-mono-tech text-slate-400 uppercase">Enter Team Name</label>
@@ -159,7 +170,7 @@
               class="w-full px-3.5 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white focus:outline-none focus:border-cyan-400 font-mono-tech" />
           </div>
           <button onclick="startCP9()" class="w-full py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold font-mono-tech tracking-wide glow-cyan transition">
-            BREACH GATEWAY →
+            START BREACH (05:00) →
           </button>
         </div>
       </div>
@@ -170,10 +181,10 @@
         <div class="grid grid-cols-3 gap-2 font-mono-tech text-center">
           <div class="bg-slate-900 border border-slate-800 rounded-xl p-2">
             <div class="text-[10px] text-slate-400">TIME LEFT</div>
-            <div id="cp9-timer" class="text-lg font-bold text-cyan-400">08:00</div>
+            <div id="cp9-timer" class="text-lg font-bold text-cyan-400">05:00</div>
           </div>
           <div class="bg-slate-900 border border-slate-800 rounded-xl p-2">
-            <div class="text-[10px] text-slate-400">LOCK</div>
+            <div class="text-[10px] text-slate-400">LAYER</div>
             <div id="cp9-progress" class="text-lg font-bold text-white">1 / 3</div>
           </div>
           <div class="bg-slate-900 border border-slate-800 rounded-xl p-2">
@@ -185,104 +196,69 @@
         <!-- Feedback Banner -->
         <div id="cp9-msg" class="hidden text-center font-mono-tech text-xs py-2 px-3 rounded-lg"></div>
 
-        <!-- Lock 1: Code Crack -->
-        <div id="cp9-lock-1" class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+        <!-- Layer 1: Signal Memory (Simon Says) -->
+        <div id="cp9-layer-1" class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
           <div class="flex items-center justify-between">
-            <span class="font-mono-tech text-xs text-cyan-400 font-bold">LOCK 1 // 3-DIGIT CODE CRACK</span>
-            <span class="text-xs text-slate-500">+30 PTS</span>
+            <span class="font-mono-tech text-xs text-cyan-400 font-bold">LAYER 1 // SIGNAL MEMORY</span>
+            <span id="simon-step-badge" class="font-mono-tech text-xs text-slate-400">0 / 5</span>
           </div>
-          <p class="text-sm text-slate-300">Deduce the 3-digit PIN using the security logs below:</p>
+          <p id="simon-status" class="text-sm text-slate-300">Watch the 5-flash signal sequence carefully...</p>
 
-          <div class="space-y-2 font-mono-tech text-xs bg-slate-950 p-3.5 rounded-xl border border-slate-800">
-            <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
-              <span class="text-base font-bold text-cyan-300 tracking-widest">6 - 8 - 2</span>
-              <span class="text-slate-300 text-right">1 digit correct &amp; right spot</span>
-            </div>
-            <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
-              <span class="text-base font-bold text-cyan-300 tracking-widest">6 - 1 - 4</span>
-              <span class="text-slate-300 text-right">1 digit correct, wrong spot</span>
-            </div>
-            <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
-              <span class="text-base font-bold text-cyan-300 tracking-widest">2 - 0 - 6</span>
-              <span class="text-slate-300 text-right">2 digits correct, wrong spots</span>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="text-base font-bold text-rose-400 tracking-widest">7 - 3 - 8</span>
-              <span class="text-slate-400 text-right">Nothing is correct</span>
-            </div>
-          </div>
-
-          <div class="flex gap-2">
-            <input id="cp9-l1-input" type="tel" maxlength="3" placeholder="000"
-              class="flex-1 text-center text-2xl tracking-[0.5em] font-mono-tech font-bold py-3 rounded-xl bg-slate-950 border border-slate-700 text-white focus:outline-none focus:border-cyan-400" />
-            <button onclick="checkCP9Lock1()" class="px-5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold font-mono-tech">
-              UNLOCK
+          <div class="grid grid-cols-2 gap-3 pt-1">
+            <button id="simon-pad-0" onclick="tapSimonPad(0)" class="simon-pad h-28 rounded-2xl bg-rose-600 border-2 border-rose-400 text-rose-200 font-mono-tech font-extrabold text-base">
+              RED
+            </button>
+            <button id="simon-pad-1" onclick="tapSimonPad(1)" class="simon-pad h-28 rounded-2xl bg-blue-600 border-2 border-blue-400 text-blue-200 font-mono-tech font-extrabold text-base">
+              BLUE
+            </button>
+            <button id="simon-pad-2" onclick="tapSimonPad(2)" class="simon-pad h-28 rounded-2xl bg-emerald-600 border-2 border-emerald-400 text-emerald-200 font-mono-tech font-extrabold text-base">
+              GREEN
+            </button>
+            <button id="simon-pad-3" onclick="tapSimonPad(3)" class="simon-pad h-28 rounded-2xl bg-amber-500 border-2 border-amber-300 text-amber-100 font-mono-tech font-extrabold text-base">
+              AMBER
             </button>
           </div>
+
+          <button id="simon-replay-btn" onclick="playSimonSequence()" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 font-mono-tech text-xs font-bold">
+            ↻ REPLAY SIGNAL PATTERN
+          </button>
         </div>
 
-        <!-- Lock 2: Glitching AI -->
-        <div id="cp9-lock-2" class="hidden p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+        <!-- Layer 2: Glitch Scanner -->
+        <div id="cp9-layer-2" class="hidden p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
           <div class="flex items-center justify-between">
-            <span class="font-mono-tech text-xs text-cyan-400 font-bold">LOCK 2 // THE GLITCHING AI</span>
-            <span class="text-xs text-slate-500">+30 PTS</span>
+            <span class="font-mono-tech text-xs text-cyan-400 font-bold">LAYER 2 // GLITCH SCANNER</span>
+            <span id="glitch-count-badge" class="font-mono-tech text-xs text-emerald-400 font-bold">0 / 3 FOUND</span>
           </div>
           <p class="text-sm text-slate-300">
-            Three security bots guard 3 doors. <strong class="text-amber-300">ONLY ONE bot is telling the truth.</strong> The other two are lying. Tap the real exit door!
+            Find and tap the <strong class="text-amber-300">3 corrupted codes</strong> hiding among the normal <code id="glitch-normal-label" class="text-cyan-300 font-mono-tech">SYS-808</code> nodes:
           </p>
 
-          <div class="space-y-2.5 text-sm bg-slate-950 p-3.5 rounded-xl border border-slate-800">
-            <div class="flex gap-2.5 items-start">
-              <span class="font-mono-tech text-xs font-bold px-2 py-0.5 rounded bg-slate-800 text-cyan-300 shrink-0">BOT A</span>
-              <p class="text-slate-200">"The exit is the <strong class="text-rose-400">RED</strong> door."</p>
-            </div>
-            <div class="flex gap-2.5 items-start">
-              <span class="font-mono-tech text-xs font-bold px-2 py-0.5 rounded bg-slate-800 text-cyan-300 shrink-0">BOT B</span>
-              <p class="text-slate-200">"The exit is <strong>NOT</strong> the <strong class="text-blue-400">BLUE</strong> door."</p>
-            </div>
-            <div class="flex gap-2.5 items-start">
-              <span class="font-mono-tech text-xs font-bold px-2 py-0.5 rounded bg-slate-800 text-cyan-300 shrink-0">BOT C</span>
-              <p class="text-slate-200">"Bot A is lying."</p>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-3 gap-2.5 pt-1">
-            <button onclick="checkCP9Lock2('RED')" class="py-4 rounded-xl bg-rose-600/20 border-2 border-rose-500 hover:bg-rose-600/40 text-rose-300 font-bold font-mono-tech">
-              🚪 RED
-            </button>
-            <button onclick="checkCP9Lock2('BLUE')" class="py-4 rounded-xl bg-blue-600/20 border-2 border-blue-500 hover:bg-blue-600/40 text-blue-300 font-bold font-mono-tech">
-              🚪 BLUE
-            </button>
-            <button onclick="checkCP9Lock2('GREEN')" class="py-4 rounded-xl bg-emerald-600/20 border-2 border-emerald-500 hover:bg-emerald-600/40 text-emerald-300 font-bold font-mono-tech">
-              🚪 GREEN
-            </button>
+          <div id="glitch-grid" class="grid grid-cols-3 gap-2 pt-1">
+            <!-- Rendered dynamically -->
           </div>
         </div>
 
-        <!-- Lock 3: Cyber Equation -->
-        <div id="cp9-lock-3" class="hidden p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+        <!-- Layer 3: Firewall Lock-On -->
+        <div id="cp9-layer-3" class="hidden p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-5">
           <div class="flex items-center justify-between">
-            <span class="font-mono-tech text-xs text-cyan-400 font-bold">LOCK 3 // CYBER EQUATION</span>
-            <span class="text-xs text-slate-500">+30 PTS</span>
+            <span class="font-mono-tech text-xs text-cyan-400 font-bold">LAYER 3 // FIREWALL LOCK-ON</span>
+            <span id="reflex-count-badge" class="font-mono-tech text-xs text-emerald-400 font-bold">0 / 3 LOCKED</span>
           </div>
-          <p class="text-sm text-slate-300">Solve the final override value. Watch the math symbols carefully!</p>
+          <p class="text-sm text-slate-300">
+            Tap <strong class="text-cyan-300">LOCK SIGNAL</strong> when the moving scanner bar is inside the <strong class="text-emerald-400">GREEN TARGET ZONE</strong>!
+          </p>
 
-          <div class="space-y-3 font-mono-tech text-lg bg-slate-950 p-4 rounded-xl border border-slate-800 text-center">
-            <div>🖥️ + 🖥️ + 🖥️ = <span class="text-cyan-400 font-bold">30</span></div>
-            <div>🖥️ + 🔒 + 🔒 = <span class="text-cyan-400 font-bold">20</span></div>
-            <div>🔒 + 🔑 + 🔑 = <span class="text-cyan-400 font-bold">9</span></div>
-            <div class="border-t border-slate-800 pt-3 text-xl font-bold text-amber-300">
-              🖥️ + 🔒 × 🔑 = ?
+          <div class="py-3">
+            <div class="w-full h-12 bg-slate-950 border-2 border-slate-700 rounded-xl relative overflow-hidden">
+              <div id="reflex-zone" class="absolute top-0 bottom-0 bg-emerald-500/30 border-x-2 border-emerald-400" style="left: 35%; width: 24%;"></div>
+              <div id="reflex-cursor" class="absolute top-0 bottom-0 w-2.5 bg-cyan-400 shadow-[0_0_15px_#22d3ee] rounded" style="left: 5%;"></div>
             </div>
           </div>
 
-          <div class="flex gap-2">
-            <input id="cp9-l3-input" type="tel" maxlength="3" placeholder="??"
-              class="flex-1 text-center text-2xl font-mono-tech font-bold py-3 rounded-xl bg-slate-950 border border-slate-700 text-white focus:outline-none focus:border-cyan-400" />
-            <button onclick="checkCP9Lock3()" class="px-5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold font-mono-tech">
-              SUBMIT
-            </button>
-          </div>
+          <button onclick="triggerReflexLock()" class="w-full py-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold font-mono-tech text-lg tracking-wider glow-cyan active:scale-95 transition">
+            🎯 LOCK SIGNAL
+          </button>
         </div>
       </div>
     </section>
@@ -333,17 +309,13 @@
         </div>
 
         <!-- Module Tabs -->
-        <div id="cp10-tabs" class="grid grid-cols-5 gap-1.5 font-mono-tech text-xs">
-          <!-- Rendered by JS -->
-        </div>
+        <div id="cp10-tabs" class="grid grid-cols-5 gap-1.5 font-mono-tech text-xs"></div>
 
         <!-- Feedback Banner -->
         <div id="cp10-msg" class="hidden text-center font-mono-tech text-xs py-2 px-3 rounded-lg"></div>
 
         <!-- Active Module Container -->
-        <div id="cp10-module-box" class="p-5 rounded-2xl bg-slate-900 border border-slate-800 min-h-[340px]">
-          <!-- Rendered dynamically -->
-        </div>
+        <div id="cp10-module-box" class="p-5 rounded-2xl bg-slate-900 border border-slate-800 min-h-[340px]"></div>
       </div>
     </section>
 
@@ -487,7 +459,7 @@
         <div id="res-badge" class="inline-block font-mono-tech text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300">
           MISSION COMPLETE
         </div>
-        <h1 id="res-station" class="text-xl font-bold text-white">CP 9: LOGIC GATEWAY</h1>
+        <h1 id="res-station" class="text-xl font-bold text-white">CP 9: CYBER BREACH</h1>
         <div class="py-3 bg-slate-950 rounded-xl border border-slate-800">
           <div class="text-xs font-mono-tech text-slate-400">FINAL SCORE</div>
           <div id="res-score" class="text-5xl font-extrabold font-mono-tech text-emerald-400 mt-1">100</div>
@@ -513,13 +485,15 @@
           </div>
         </div>
 
-        <div id="res-clue" class="p-3.5 rounded-xl bg-cyan-950/50 border border-cyan-500/40 text-xs text-cyan-200 font-mono-tech">
-          <!-- Next clue injected here -->
-        </div>
+        <div id="res-clue" class="p-3.5 rounded-xl bg-cyan-950/50 border border-cyan-500/40 text-xs text-cyan-200 font-mono-tech"></div>
 
         <p class="text-[11px] text-slate-400">
           Show this screen to the Checkpoint Marshal to log your score before moving on!
         </p>
+
+        <button id="res-reset-btn" onclick="resetCurrentStation()" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-mono-tech text-xs font-bold">
+          ↻ RESET FOR NEXT TEAM
+        </button>
       </div>
     </section>
 
@@ -530,6 +504,17 @@
        GLOBAL ROUTING & UTILITIES
     ===================================================================== */
     let activeTimer = null;
+    let reflexAnimId = null;
+    let lastStationMode = 'cp9';
+
+    function stopAllTimers() {
+      clearInterval(activeTimer);
+      activeTimer = null;
+      if (reflexAnimId) {
+        cancelAnimationFrame(reflexAnimId);
+        reflexAnimId = null;
+      }
+    }
 
     function showSection(id) {
       ['view-hub', 'view-cp9', 'view-cp10-hacker', 'view-cp10-manual', 'view-result'].forEach(v => {
@@ -541,13 +526,15 @@
     }
 
     function openMode(mode) {
-      clearInterval(activeTimer);
+      stopAllTimers();
       if (mode === 'cp9') {
-        document.getElementById('header-title').textContent = 'CP 9 // LOGIC GATEWAY';
+        lastStationMode = 'cp9';
+        document.getElementById('header-title').textContent = 'CP 9 // CYBER BREACH';
         document.getElementById('cp9-start').classList.remove('hidden');
         document.getElementById('cp9-play').classList.add('hidden');
         showSection('view-cp9');
       } else if (mode === 'cp10-hacker') {
+        lastStationMode = 'cp10-hacker';
         document.getElementById('header-title').textContent = 'CP 10 // MAINFRAME TERMINAL';
         document.getElementById('cp10-start').classList.remove('hidden');
         document.getElementById('cp10-play').classList.add('hidden');
@@ -560,22 +547,36 @@
       }
     }
 
+    function resetCurrentStation() {
+      openMode(lastStationMode);
+    }
+
     function goHome() {
-      clearInterval(activeTimer);
+      stopAllTimers();
       document.getElementById('header-title').textContent = 'X-HUNT // MISSION HUB';
       showSection('view-hub');
     }
 
     function formatTime(sec) {
-      const m = Math.floor(sec / 60);
-      const s = sec % 60;
-      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+      const s = Math.max(0, sec);
+      const m = Math.floor(s / 60);
+      const r = s % 60;
+      return `${String(m).padStart(2, '0')}:${String(r).padStart(2, '0')}`;
     }
 
     function flashError() {
       document.body.classList.remove('flash-red');
       void document.body.offsetWidth;
       document.body.classList.add('flash-red');
+    }
+
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
     }
 
     function generateVerifyCode(prefix, score) {
@@ -586,7 +587,7 @@
     }
 
     function showFinalResult({ station, badge, team, score, timeLeft, errors, code, clue }) {
-      clearInterval(activeTimer);
+      stopAllTimers();
       document.getElementById('res-badge').textContent = badge;
       document.getElementById('res-station').textContent = station;
       document.getElementById('res-score').textContent = score;
@@ -599,15 +600,61 @@
     }
 
     /* =====================================================================
-       CP 9: LOGIC GATEWAY (3-LOCK BYPASS)
+       CP 9: CYBER BREACH (ARCADE MEMORY + GLITCH SCAN + REFLEX)
     ===================================================================== */
+    const GLITCH_PAIRS = [
+      ['SYS-808', 'SYS-8O8'],
+      ['NET-101', 'NET-1l1'],
+      ['KEY-55Z', 'KEY-552'],
+      ['CPU-99B', 'CPU-998'],
+      ['HEX-0A0', 'HEX-OA0'],
+      ['BOT-77T', 'BOT-777']
+    ];
+
     const cp9 = {
       team: '',
-      timeLeft: 480, // 8 minutes
-      lock: 1,
+      timeLeft: 300, // 5 minutes
+      layer: 1,
       errors: 0,
-      cleared: 0
+      cleared: 0,
+      // Layer 1: Simon Says
+      simonSeq: [],
+      simonInput: [],
+      simonPlaying: false,
+      // Layer 2: Glitch Scanner
+      normalCode: 'SYS-808',
+      cells: [],
+      glitchesFound: 0,
+      // Layer 3: Reflex Lock-On
+      zoneStart: 35,
+      zoneWidth: 24,
+      cursorPos: 5,
+      cursorDir: 1,
+      reflexHits: 0
     };
+
+    function generateCP9Data() {
+      cp9.simonSeq = Array.from({ length: 5 }, () => Math.floor(Math.random() * 4));
+      cp9.simonInput = [];
+      cp9.simonPlaying = false;
+
+      const [norm, glitch] = GLITCH_PAIRS[Math.floor(Math.random() * GLITCH_PAIRS.length)];
+      cp9.normalCode = norm;
+      const raw = Array(15).fill(norm).concat([glitch, glitch, glitch]);
+      cp9.cells = shuffle(raw).map((code, id) => ({
+        id,
+        code,
+        isGlitch: code === glitch,
+        found: false
+      }));
+      cp9.glitchesFound = 0;
+
+      cp9.zoneStart = Math.floor(20 + Math.random() * 42);
+      cp9.zoneWidth = 24;
+      cp9.cursorPos = 5;
+      cp9.cursorDir = 1;
+      cp9.reflexHits = 0;
+    }
 
     function startCP9() {
       const name = document.getElementById('cp9-team-input').value.trim();
@@ -616,26 +663,26 @@
         return;
       }
       cp9.team = name;
-      cp9.timeLeft = 480;
-      cp9.lock = 1;
+      cp9.timeLeft = 300;
+      cp9.layer = 1;
       cp9.errors = 0;
       cp9.cleared = 0;
+      generateCP9Data();
 
-      document.getElementById('cp9-l1-input').value = '';
-      document.getElementById('cp9-l3-input').value = '';
       document.getElementById('cp9-errors').textContent = '0';
       document.getElementById('cp9-progress').textContent = '1 / 3';
       document.getElementById('cp9-timer').textContent = formatTime(cp9.timeLeft);
+      document.getElementById('cp9-timer').className = 'text-lg font-bold text-cyan-400';
       document.getElementById('cp9-msg').classList.add('hidden');
 
-      document.getElementById('cp9-lock-1').classList.remove('hidden');
-      document.getElementById('cp9-lock-2').classList.add('hidden');
-      document.getElementById('cp9-lock-3').classList.add('hidden');
+      document.getElementById('cp9-layer-1').classList.remove('hidden');
+      document.getElementById('cp9-layer-2').classList.add('hidden');
+      document.getElementById('cp9-layer-3').classList.add('hidden');
 
       document.getElementById('cp9-start').classList.add('hidden');
       document.getElementById('cp9-play').classList.remove('hidden');
 
-      clearInterval(activeTimer);
+      stopAllTimers();
       activeTimer = setInterval(() => {
         cp9.timeLeft--;
         document.getElementById('cp9-timer').textContent = formatTime(cp9.timeLeft);
@@ -646,6 +693,8 @@
           finishCP9(false);
         }
       }, 1000);
+
+      setTimeout(() => playSimonSequence(), 350);
     }
 
     function cp9Feedback(text, isError) {
@@ -661,56 +710,163 @@
       }
     }
 
-    function checkCP9Lock1() {
-      const val = document.getElementById('cp9-l1-input').value.trim();
-      if (val === '042') {
-        cp9.cleared = 1;
-        cp9.lock = 2;
-        cp9Feedback('LOCK 1 BREACHED! (+30 PTS)', false);
-        document.getElementById('cp9-lock-1').classList.add('hidden');
-        document.getElementById('cp9-lock-2').classList.remove('hidden');
-        document.getElementById('cp9-progress').textContent = '2 / 3';
+    // --- Layer 1: Signal Memory ---
+    function playSimonSequence() {
+      if (cp9.layer !== 1) return;
+      cp9.simonPlaying = true;
+      cp9.simonInput = [];
+      document.getElementById('simon-step-badge').textContent = '0 / 5';
+      document.getElementById('simon-status').textContent = 'WATCH THE FLASHING SEQUENCE...';
+      document.getElementById('simon-replay-btn').disabled = true;
+
+      cp9.simonSeq.forEach((padIdx, i) => {
+        setTimeout(() => {
+          const pad = document.getElementById(`simon-pad-${padIdx}`);
+          if (pad) pad.classList.add('lit');
+          setTimeout(() => {
+            if (pad) pad.classList.remove('lit');
+          }, 360);
+        }, i * 620 + 250);
+      });
+
+      setTimeout(() => {
+        cp9.simonPlaying = false;
+        document.getElementById('simon-status').textContent = 'YOUR TURN! Tap the 5 colors in the exact same order:';
+        document.getElementById('simon-replay-btn').disabled = false;
+      }, cp9.simonSeq.length * 620 + 350);
+    }
+
+    function tapSimonPad(padIdx) {
+      if (cp9.simonPlaying || cp9.layer !== 1) return;
+      const pad = document.getElementById(`simon-pad-${padIdx}`);
+      if (pad) {
+        pad.classList.add('lit');
+        setTimeout(() => pad.classList.remove('lit'), 180);
+      }
+
+      const expected = cp9.simonSeq[cp9.simonInput.length];
+      if (padIdx === expected) {
+        cp9.simonInput.push(padIdx);
+        document.getElementById('simon-step-badge').textContent = `${cp9.simonInput.length} / 5`;
+        if (cp9.simonInput.length === 5) {
+          cp9.cleared = 1;
+          cp9.layer = 2;
+          cp9Feedback('LAYER 1 BREACHED! (+30 PTS)', false);
+          document.getElementById('cp9-progress').textContent = '2 / 3';
+          document.getElementById('cp9-layer-1').classList.add('hidden');
+          document.getElementById('cp9-layer-2').classList.remove('hidden');
+          renderGlitchGrid();
+        }
       } else {
-        cp9Feedback('INVALID PIN! (-3 PTS) Check the logs again.', true);
+        cp9.simonInput = [];
+        cp9Feedback('WRONG COLOR! (-3 PTS) Replaying pattern...', true);
+        setTimeout(() => playSimonSequence(), 750);
       }
     }
 
-    function checkCP9Lock2(door) {
-      if (door === 'BLUE') {
-        cp9.cleared = 2;
-        cp9.lock = 3;
-        cp9Feedback('LOCK 2 BREACHED! (+30 PTS)', false);
-        document.getElementById('cp9-lock-2').classList.add('hidden');
-        document.getElementById('cp9-lock-3').classList.remove('hidden');
-        document.getElementById('cp9-progress').textContent = '3 / 3';
+    // --- Layer 2: Glitch Scanner ---
+    function renderGlitchGrid() {
+      document.getElementById('glitch-normal-label').textContent = cp9.normalCode;
+      document.getElementById('glitch-count-badge').textContent = `${cp9.glitchesFound} / 3 FOUND`;
+      const grid = document.getElementById('glitch-grid');
+      grid.innerHTML = cp9.cells.map(c => `
+        <button onclick="tapGlitchCell(${c.id})" ${c.found ? 'disabled' : ''}
+          class="py-3 px-1 rounded-xl font-mono-tech text-xs font-bold border transition ${
+            c.found
+              ? 'bg-emerald-950/70 border-emerald-500 text-emerald-300'
+              : 'bg-slate-950 border-slate-700 hover:border-cyan-400 text-slate-200 active:scale-95'
+          }">
+          ${c.found ? '✓ ' + c.code : c.code}
+        </button>
+      `).join('');
+    }
+
+    function tapGlitchCell(id) {
+      if (cp9.layer !== 2) return;
+      const cell = cp9.cells.find(c => c.id === id);
+      if (!cell || cell.found) return;
+
+      if (cell.isGlitch) {
+        cell.found = true;
+        cp9.glitchesFound++;
+        renderGlitchGrid();
+        if (cp9.glitchesFound === 3) {
+          cp9.cleared = 2;
+          cp9.layer = 3;
+          cp9Feedback('LAYER 2 BREACHED! (+30 PTS)', false);
+          document.getElementById('cp9-progress').textContent = '3 / 3';
+          document.getElementById('cp9-layer-2').classList.add('hidden');
+          document.getElementById('cp9-layer-3').classList.remove('hidden');
+          startReflexLoop();
+        } else {
+          cp9Feedback(`CORRUPTED CODE ISOLATED! (${cp9.glitchesFound}/3)`, false);
+        }
       } else {
-        cp9Feedback('SECURITY TRAP! (-3 PTS) Remember: ONLY ONE bot tells the truth.', true);
+        cp9Feedback('CLEAN FILE! (-3 PTS) Look closer at the characters.', true);
       }
     }
 
-    function checkCP9Lock3() {
-      const val = document.getElementById('cp9-l3-input').value.trim();
-      if (val === '20') {
-        cp9.cleared = 3;
-        finishCP9(true);
+    // --- Layer 3: Firewall Lock-On ---
+    function updateReflexZoneUI() {
+      const zone = document.getElementById('reflex-zone');
+      zone.style.left = `${cp9.zoneStart}%`;
+      zone.style.width = `${cp9.zoneWidth}%`;
+      document.getElementById('reflex-count-badge').textContent = `${cp9.reflexHits} / 3 LOCKED`;
+    }
+
+    function startReflexLoop() {
+      if (reflexAnimId) cancelAnimationFrame(reflexAnimId);
+      updateReflexZoneUI();
+
+      function step() {
+        if (cp9.layer !== 3) return;
+        const speed = 0.85 + cp9.reflexHits * 0.30;
+        cp9.cursorPos += cp9.cursorDir * speed;
+        if (cp9.cursorPos >= 96) {
+          cp9.cursorPos = 96;
+          cp9.cursorDir = -1;
+        } else if (cp9.cursorPos <= 1) {
+          cp9.cursorPos = 1;
+          cp9.cursorDir = 1;
+        }
+        const cursor = document.getElementById('reflex-cursor');
+        if (cursor) cursor.style.left = `${cp9.cursorPos}%`;
+        reflexAnimId = requestAnimationFrame(step);
+      }
+      reflexAnimId = requestAnimationFrame(step);
+    }
+
+    function triggerReflexLock() {
+      if (cp9.layer !== 3) return;
+      const hit = cp9.cursorPos >= cp9.zoneStart && cp9.cursorPos <= (cp9.zoneStart + cp9.zoneWidth);
+      if (hit) {
+        cp9.reflexHits++;
+        if (cp9.reflexHits >= 3) {
+          cp9.cleared = 3;
+          finishCP9(true);
+        } else {
+          cp9.zoneStart = Math.floor(15 + Math.random() * 52);
+          updateReflexZoneUI();
+          cp9Feedback(`SIGNAL LOCKED (${cp9.reflexHits}/3)! Speed increasing...`, false);
+        }
       } else {
-        cp9Feedback('WRONG VALUE! (-3 PTS) Remember order of operations (× before +)!', true);
+        cp9Feedback('MISSED GREEN ZONE! (-3 PTS) Time your tap!', true);
       }
     }
 
     function finishCP9(completed) {
       let score = cp9.cleared * 30;
-      const speedBonus = (completed && cp9.timeLeft >= 180) ? 10 : 0; // Under 5 mins used
+      const speedBonus = (completed && cp9.timeLeft >= 120) ? 10 : 0; // 2:00+ left
       score = Math.max(0, score + speedBonus - (cp9.errors * 3));
       showFinalResult({
-        station: 'CP 9: LOGIC GATEWAY',
-        badge: completed ? (speedBonus ? 'GATEWAY BREACHED + SPEED BONUS!' : 'GATEWAY BREACHED!') : "TIME'S UP",
+        station: 'CP 9: CYBER BREACH',
+        badge: completed ? (speedBonus ? 'BREACH COMPLETE + SPEED BONUS!' : 'BREACH COMPLETE!') : "TIME'S UP",
         team: cp9.team,
         score,
         timeLeft: cp9.timeLeft,
         errors: cp9.errors,
         code: generateVerifyCode('CP9', score),
-        clue: '🔓 FIREWALL DISABLED!<br><strong>NEXT OBJECTIVE:</strong> Proceed to <strong>CP 10: THE MAINFRAME</strong>.'
+        clue: '🔓 FIREWALL BREACHED!<br><strong>NEXT OBJECTIVE:</strong> Proceed to <strong>CP 10: THE MAINFRAME</strong>.'
       });
     }
 
@@ -749,18 +905,8 @@
       data: {}
     };
 
-    function shuffle(arr) {
-      const a = [...arr];
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    }
-
     function generateCP10Data() {
-      // --- Module 1: Server Wires ---
-      const serialNum = Math.floor(100 + Math.random() * 900); // 100-999
+      const serialNum = Math.floor(100 + Math.random() * 900);
       const serial = `SYS-${serialNum}`;
       const wires = Array.from({ length: 5 }, () => WIRE_COLORS[Math.floor(Math.random() * WIRE_COLORS.length)].name);
       const redCount = wires.filter(w => w === 'RED').length;
@@ -768,13 +914,12 @@
       const yellowCount = wires.filter(w => w === 'YELLOW').length;
       const isOdd = (serialNum % 2) === 1;
 
-      let wireAnswer = 2; // 0-indexed (3rd wire)
-      if (redCount === 0) wireAnswer = 1; // 2nd wire
-      else if (wires[4] === 'WHITE') wireAnswer = 3; // 4th wire
+      let wireAnswer = 2;
+      if (redCount === 0) wireAnswer = 1;
+      else if (wires[4] === 'WHITE') wireAnswer = 3;
       else if (blueCount > 1 && isOdd) wireAnswer = wires.lastIndexOf('BLUE');
-      else if (yellowCount === 1) wireAnswer = 0; // 1st wire
+      else if (yellowCount === 1) wireAnswer = 0;
 
-      // --- Module 2: Override Button ---
       const btnColors = ['RED', 'BLUE', 'YELLOW', 'GREEN'];
       const btnWords = ['ABORT', 'DETONATE', 'HOLD', 'PRESS'];
       const bColor = btnColors[Math.floor(Math.random() * btnColors.length)];
@@ -785,13 +930,11 @@
       else if (bColor === 'BLUE' || bColor === 'YELLOW') btnAction = 'HOLD';
       else btnAction = 'TAP';
 
-      // --- Module 3: Symbol Keypad ---
       const col = SYMBOL_COLUMNS[Math.floor(Math.random() * SYMBOL_COLUMNS.length)];
       const pickedIndices = shuffle([0, 1, 2, 3, 4, 5]).slice(0, 4).sort((a, b) => a - b);
       const correctSeq = pickedIndices.map(i => col[i]);
       const gridSymbols = shuffle(correctSeq);
 
-      // --- Module 4: Glitch Words (2 Rounds) ---
       const prompts = shuffle(Object.keys(GLITCH_BANK)).slice(0, 2);
       const glitchRounds = prompts.map(p => {
         const list = GLITCH_BANK[p];
@@ -801,7 +944,6 @@
         return { prompt: p, options, answer };
       });
 
-      // --- Module 5: Core Memory (3 Stages) ---
       const memStages = [0, 1, 2].map(() => ({
         display: Math.floor(1 + Math.random() * 4),
         buttons: shuffle([1, 2, 3, 4])
@@ -841,7 +983,7 @@
       renderCP10Tabs();
       renderCP10Module();
 
-      clearInterval(activeTimer);
+      stopAllTimers();
       activeTimer = setInterval(() => {
         cp10.timeLeft--;
         document.getElementById('cp10-timer').textContent = formatTime(cp10.timeLeft);
@@ -879,7 +1021,6 @@
       if (count === 5) {
         setTimeout(() => finishCP10(true), 600);
       } else {
-        // Auto-jump to next unsolved module after brief pause
         const next = cp10.solved.findIndex(s => !s);
         if (next !== -1) {
           setTimeout(() => {
@@ -926,7 +1067,6 @@
         return;
       }
 
-      // ---- MODULE 1: SERVER WIRES ----
       if (idx === 0) {
         const m1 = cp10.data.m1;
         box.innerHTML = `
@@ -949,10 +1089,7 @@
               }).join('')}
             </div>
           </div>`;
-      }
-
-      // ---- MODULE 2: OVERRIDE BUTTON ----
-      else if (idx === 1) {
+      } else if (idx === 1) {
         const m2 = cp10.data.m2;
         const colorMap = {
           RED: 'bg-rose-600 border-rose-300 text-white',
@@ -979,10 +1116,7 @@
             </div>
           </div>`;
         attachOverrideButtonHandlers();
-      }
-
-      // ---- MODULE 3: SYMBOL KEYPAD ----
-      else if (idx === 2) {
+      } else if (idx === 2) {
         const m3 = cp10.data.m3;
         box.innerHTML = `
           <div class="space-y-4">
@@ -992,7 +1126,7 @@
             </div>
             <p class="text-xs text-slate-400">Describe all 4 symbols. Tap them in exact order from top to bottom:</p>
             <div class="grid grid-cols-2 gap-3 pt-2">
-              ${m3.grid.map((sym, i) => {
+              ${m3.grid.map((sym) => {
                 const done = m3.pressed.includes(sym);
                 return `
                   <button onclick="pressSymbol('${sym}')" ${done ? 'disabled' : ''}
@@ -1004,10 +1138,7 @@
               }).join('')}
             </div>
           </div>`;
-      }
-
-      // ---- MODULE 4: GLITCH WORDS ----
-      else if (idx === 3) {
+      } else if (idx === 3) {
         const m4 = cp10.data.m4;
         const curr = m4.rounds[m4.round];
         box.innerHTML = `
@@ -1029,10 +1160,7 @@
                 </button>`).join('')}
             </div>
           </div>`;
-      }
-
-      // ---- MODULE 5: CORE MEMORY ----
-      else if (idx === 4) {
+      } else if (idx === 4) {
         const m5 = cp10.data.m5;
         const curr = m5.stages[m5.stage];
         box.innerHTML = `
@@ -1058,7 +1186,6 @@
       }
     }
 
-    // --- Module 1 Handler ---
     function cutWire(i) {
       const m1 = cp10.data.m1;
       if (i === m1.answer) {
@@ -1072,7 +1199,6 @@
       }
     }
 
-    // --- Module 2 Handler (Unified Pointer Events for Tap / Double-Tap / Hold 3s) ---
     function attachOverrideButtonHandlers() {
       const btn = document.getElementById('override-btn');
       const bar = document.getElementById('hold-bar');
@@ -1129,7 +1255,6 @@
 
         const elapsed = Date.now() - pressStart;
         if (elapsed > 600) {
-          // Released too early during a hold attempt
           lbl.textContent = 'RELEASED TOO EARLY (NEED 3s)';
           return;
         }
@@ -1156,7 +1281,6 @@
       });
     }
 
-    // --- Module 3 Handler ---
     function pressSymbol(sym) {
       const m3 = cp10.data.m3;
       if (sym === m3.seq[m3.step]) {
@@ -1172,7 +1296,6 @@
       }
     }
 
-    // --- Module 4 Handler ---
     function pressGlitchWord(word) {
       const m4 = cp10.data.m4;
       const curr = m4.rounds[m4.round];
@@ -1189,7 +1312,6 @@
       }
     }
 
-    // --- Module 5 Handler ---
     function pressMemory(pos, label) {
       const m5 = cp10.data.m5;
       const curr = m5.stages[m5.stage];
@@ -1260,3 +1382,9 @@
   </script>
 </body>
 </html>
+"""
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(html_code)
+
+print("Saved index.html successfully! Bytes:", len(html_code))
