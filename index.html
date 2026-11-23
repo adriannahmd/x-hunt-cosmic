@@ -1014,7 +1014,7 @@
 
       function step() {
         if (cp9.layer !== 5) return;
-        const speed = 0.85 + cp9.reflexHits * 0.25;
+        const speed = 0.45 + cp9.reflexHits * 0.12;
         cp9.cursorPos += cp9.cursorDir * speed;
         if (cp9.cursorPos >= 96) {
           cp9.cursorPos = 96;
@@ -1060,7 +1060,7 @@
         timeLeft: cp9.timeLeft,
         errors: cp9.errors,
         code: generateVerifyCode('CP9', score),
-        clue: '🔓 FIREWALL BREACHED!<br><strong>NEXT OBJECTIVE:</strong> Proceed to <strong>CP 10: THE MAINFRAME</strong>.'
+        clue: '🔓 FIREWALL BREACHED!'
       });
     }
 
@@ -1557,7 +1557,7 @@
         timeLeft: cp10.timeLeft,
         errors: cp10.strikes,
         code: generateVerifyCode('CP10', score),
-        clue: '🏆 DATA EXTRACTED!<br><strong>FINAL DESTINATION:</strong> Proceed to <strong>STADIUM MINI</strong> for the Finale: <strong>Tag-Rumble Survival</strong>!'
+        clue: '🏆 DATA EXTRACTED!'
       });
     }
 
