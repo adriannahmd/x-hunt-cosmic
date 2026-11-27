@@ -82,7 +82,13 @@
 </head>
 <body class="cyber-bg min-h-screen flex flex-col">
 
-  
+  <!-- Countdown Overlay -->
+     <!-- CP 9 Countdown -->
+      <div id="countdown-overlay" class="hidden fixed inset-0 z-50 bg-slate-950/95 flex flex-col items-center justify-center">
+        <div class="font-mono-tech text-xs text-cyan-400 tracking-widest">BREACH STARTING IN</div>
+        <div id="countdown-num" class="font-mono-tech text-8xl font-extrabold text-cyan-400 mt-3">3</div>
+      </div>
+
   <!-- TOP BAR -->
   <header class="sticky top-0 z-30 bg-slate-950/90 backdrop-blur border-b border-slate-800 px-4 py-3 flex items-center justify-between">
     <div class="flex items-center gap-2">
@@ -116,11 +122,6 @@
           <p class="text-xs text-slate-400 mt-0.5">5-Layer Arcade Bypass: Signal Memory, Glitch Scanner, Node Trace, Cipher Match &amp; Firewall Lock-On.</p>
         </button>
 
-        <!-- CP 9 Countdown -->
-        <div id="countdown-overlay" class="hidden fixed inset-0 z-50 bg-slate-950/95 flex flex-col items-center justify-center">
-          <div class="font-mono-tech text-xs text-cyan-400 tracking-widest">BREACH STARTING IN</div>
-          <div id="countdown-num" class="font-mono-tech text-8xl font-extrabold text-cyan-400 mt-3">3</div>
-        </div>
 
         <!-- CP 10 Hacker Card -->
         <button onclick="openMode('cp10-hacker')" class="w-full text-left p-4 rounded-xl bg-slate-900/90 border border-amber-500/40 hover:border-amber-400 transition group">
